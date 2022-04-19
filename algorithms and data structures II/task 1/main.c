@@ -40,6 +40,8 @@ int main(int argc, char const *argv[])
         printf("%d", result);
     else
         printf("%d nao foi encontrado", searchNumber);
+	
+    free(numbers);
 
     return 0;
 }
