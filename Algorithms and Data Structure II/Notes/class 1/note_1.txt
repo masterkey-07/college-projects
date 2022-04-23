@@ -1,0 +1,23 @@
+Function Consumption Type Comparison
+    O(1) < O(lgN) < O(N) < O(N * lgN) < O(N²) < O(N³) < O(c^N) < O(N!)
+
+linear.c : O(N) < recursive.c O(c^N)
+
+
+Example to Calculate Recursive Functions :
+
+2T(N/2) + N
+
+2(2T(N/4) + N/2) + N
+
+4(N/4) + 2N
+
+.
+
+.
+
+.
+
+N^i * T(N/2^i) + i*N
+
+O(N * log2(N))

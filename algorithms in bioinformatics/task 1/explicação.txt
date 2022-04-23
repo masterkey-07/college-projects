@@ -1,5 +1,0 @@
-Ler sequencia do virus
-
-Fazer a contagem dos nucleotideos A, T, C, G
-
-Por fim, escrever o resultado
