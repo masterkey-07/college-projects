@@ -1,0 +1,4 @@
+Realizar a leitura do dna 
+Fazer a contagem de cada segmento, e depois calculando o conteudo cg e a temperatura de anelamento
+escreves os dados no arquivo
+gerar grafico de pontos espalhados

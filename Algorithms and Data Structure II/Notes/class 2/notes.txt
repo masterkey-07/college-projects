@@ -1,0 +1,7 @@
+non-stable sort method means that the elements are not sorted by their position on the raw array.
+
+Example : [1, 3, 5, 4¹, 7 ,9, 4²] => [1, 3, 4², 4¹, 7 ,9] : Non stable
+
+Simple Sorting Methods O(N²)
+
+Efficient Sorting Methods O(N * log(N))

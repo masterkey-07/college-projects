@@ -1,58 +1,117 @@
-from asyncore import write
-import math
 from Bio.SeqIO import parse
 from matplotlib import pyplot
 
-input_path = './input/influenza.fna'
-output_path = './output/output.txt'
 
-fasta = parse(input_path, 'fasta')
-
-data = []
-
-cg = []
-
-temperature = []
-
-for dna in fasta:
-    counter = {'A': 0, 'T': 0, 'G': 0, 'C': 0, 'total': 0}
-    for char in dna.seq:
-        counter[char] += 1
-        counter['total'] += 1
-
-    counter['CG'] = (counter['C']*200) / counter['total']
-
-    cg.append(counter['CG'])
-
-    counter['temperature'] = 81.5 + \
-        (16.6 * math.log10(0.1)) + \
-        (0.41 * counter['CG']) - (500 / len(dna.seq))
-    temperature.append(counter['temperature'])
-
-    data.append(counter)
+def write_head(output):
+    output.write('Segmento | ')
+    output.write('A | ')
+    output.write('T | ')
+    output.write('C | ')
+    output.write('G | ')
+    output.write('CG% | ')
+    output.write('Temp. ')
+    output.write('\n')
 
 
-output_file = open(output_path, 'w')
+def get_total(data):
+    return data['C'] + data['G'] + data['T'] + data['A']
 
-for dt in data:
-    output_file.write('A : {}\n'.format(dt['A']))
-    output_file.write('T : {}\n'.format(dt['T']))
-    output_file.write('C : {}\n'.format(dt['C']))
-    output_file.write('G : {}\n'.format(dt['G']))
-    output_file.write('CG % : {}\n'.format(dt['CG']))
-    output_file.write('Temperature : {}\n'.format(dt['temperature']))
-    output_file.write('\n')
 
-output_file.close()
+def calculate_cg(data):
+    return round(((data['C'] + data['G']) * 100) / (data['total']), 2)
 
-cg.sort()
 
-temperature.sort()
+def create_empty_data():
+    return {'A': 0, 'T': 0, 'C': 0, 'G': 0}
 
-pyplot.plot(cg, temperature)
 
-pyplot.xlabel('CG %')
+def calculate_melting(data):
+    return round(64.9 + (0.41*data['CG']) - (500/data['total']), 2)
 
-pyplot.ylabel('Celsius')
 
-pyplot.savefig('./output/chart.png')
+def read_segment(segment):
+    data = create_empty_data()
+
+    for char in segment:
+        data[char] += 1
+
+    data['total'] = get_total(data)
+
+    data['CG'] = calculate_cg(data)
+
+    data['temperature'] = calculate_melting(data)
+
+    return data
+
+
+def read_segments(segments):
+    data = []
+    for segment in segments:
+        data.append(read_segment(segment.seq))
+
+    return data
+
+
+def count_total(data):
+    total = create_empty_data()
+    array = ['A', 'T', 'C', 'G']
+
+    for dt in data:
+        for char in array:
+            total[char] += dt[char]
+
+    return total
+
+
+def write_total(file, total):
+    file.write('Todo Segmento\n')
+    file.write('A : {}\n'.format(total['A']))
+    file.write('T : {}\n'.format(total['T']))
+    file.write('C : {}\n'.format(total['C']))
+    file.write('G : {}\n'.format(total['G']))
+    file.write('\n')
+
+
+def write_segments(file, data):
+    i = 1
+    for dt in data:
+        file.write('{} | '.format(i))
+        file.write('{} | '.format(dt['A']))
+        file.write('{} | '.format(dt['T']))
+        file.write('{} | '.format(dt['C']))
+        file.write('{} | '.format(dt['G']))
+        file.write('{}% | '.format(dt['CG']))
+        file.write('{} °C'.format(dt['temperature']))
+        file.write('\n')
+        i += 1
+
+
+def plot_data(data):
+    j = 1
+    x = []
+    y = []
+    for dt in data:
+        x.append(dt['CG'])
+        y.append(dt['temperature'])
+
+    pyplot.scatter(x, y)
+    pyplot.xlabel('CG %')
+    pyplot.ylabel('Melting Temperature')
+    pyplot.savefig('./output/chart.png')
+
+
+fasta = parse('./input/influenza.fna', 'fasta')
+
+output = open('./output/output.txt', 'w')
+
+data = read_segments(fasta)
+
+total_data = count_total(data)
+
+write_total(output, total_data)
+
+write_head(output)
+
+write_segments(output, data)
+
+plot_data(data)
