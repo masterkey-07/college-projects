@@ -1,26 +1,47 @@
 #include <stdio.h>
 #include <stdlib.h>
 
-int find_position(int *numbers, int index, int key)
+int binary_search(int *numbers, int start, int end, int key)
 {
-    if (index >= 0 && *(numbers + index) > key)
-    {
-        *(numbers + index + 1) = *(numbers + index);
-        return find_position(numbers, index - 1, key);
-    }
+    if (start > end)
+        return -1;
 
-    return index;
+    int half = ((end - start) / 2) + start;
+
+    int number = *(numbers + half);
+
+    if (key < number)
+    {
+        if (start == end)
+            return half;
+
+        return binary_search(numbers, start, half, key);
+    }
+    else
+        return binary_search(numbers, half + 1, end, key);
 }
 
 void insertion_sort(int *numbers, int index, int length)
 {
-    int position, key;
+    int position, key, i;
     if (index < length)
     {
         key = *(numbers + index);
-        position = find_position(numbers, index - 1, key);
-        *(numbers + position + 1) = key;
-        printf("%d %d %d\n", length - index, key, position + 1);
+
+        position = binary_search(numbers, 0, index - 1, key);
+
+        if (position != -1)
+        {
+            for (i = index; i > position; i--)
+                *(numbers + i) = *(numbers + i - 1);
+
+            *(numbers + position) = key;
+        }
+        else
+            position = index;
+
+        printf("%d %d %d\n", length - index, key, position);
+
         insertion_sort(numbers, index + 1, length);
     }
 }
