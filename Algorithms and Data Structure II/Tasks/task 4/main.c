@@ -29,12 +29,23 @@ void print_values(struct Value *value)
     }
 }
 
+void free_values(struct Value *value)
+{
+    if (value != NULL)
+    {
+        free_values(value->nextValue);
+        free(value);
+    }
+}
+
 struct Value *get_half(struct Value *first, int length)
 {
     if (length > 0)
         return get_half(first->nextValue, length - 1);
-
-    return first;
+    else if (length == 0)
+        return first;
+    else
+        return NULL;
 }
 
 struct Value *merge(struct Value *first, struct Value *half)
@@ -62,46 +73,21 @@ struct Value *merge(struct Value *first, struct Value *half)
 
 struct Value *merge_sort(struct Value *first, int length)
 {
-    printf("values : ");
-    print_values(first);
-    printf("\n");
     int half_length = length / 2;
+    int rest = length % 2;
 
-    printf("Length %d\n", length);
-
-    if (length > 0 && first != NULL)
+    if (length > 1 && first != NULL)
     {
-        struct Value *half;
+        struct Value *half = get_half(first->nextValue, half_length - 1);
 
-        if (first == NULL)
-            printf("OPA\n");
-
-        half = get_half(first->nextValue, half_length - 1);
-
-        printf("LEFT SIDE\n");
         first = merge_sort(first, half_length);
 
-        printf("RIGHT SIDE\n");
-        half = merge_sort(half, half_length);
+        half = merge_sort(half, half_length + rest);
 
-        if (first != NULL && half != NULL)
-            printf("Merging Both : %d, %d\n", first->value, half->value);
-        else if (first != NULL)
-            printf("Merging Left %d\n", first->value);
-        else if (half != NULL)
-            printf("Merging Rigth %d\n", half->value);
-
-        first = merge(first, half);
-        printf("After Merge\n");
-        printf("values : ");
-        print_values(first);
-        printf("\n");
-
-        return first;
+        return merge(first, half);
     }
     else if (first != NULL)
     {
-        printf("Last Node : %d\n", first->value);
         first->nextValue = NULL;
         return first;
     }
@@ -129,12 +115,11 @@ int main(int argc, char const *argv[])
         last = add_value(last, output_number);
     }
 
-    print_values(first);
-    printf("\n");
-
-    first = merge_sort(first, length - 1);
+    first = merge_sort(first, length);
 
     print_values(first);
+
+    free_values(first);
 
     return 0;
 }
