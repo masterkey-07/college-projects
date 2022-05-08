@@ -1,6 +1,8 @@
 #include <stdio.h>
 #include <stdlib.h>
 
+int merge_sort() {}
+
 int main(int argc, char const *argv[])
 {
     int length, i;
@@ -12,7 +14,7 @@ int main(int argc, char const *argv[])
     for (i = 0; i < length; i++)
         scanf("%d", numbers + i);
 
-    sort_method();
+    merge_sort();
 
     for (i = 0; i < length; i++)
         printf("%d", *(numbers + i));

@@ -15,6 +15,7 @@ int search_position(int argc, char **argv, char *token)
     {
         printf("%s\n", argv[i]);
         result = strtok(argv[i], token);
+        printf("%s\n", result);
         if (!result)
             return i;
     }
