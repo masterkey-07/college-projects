@@ -78,11 +78,11 @@ struct Value *merge_sort(struct Value *first, int length)
 
     if (length > 1 && first != NULL)
     {
-        struct Value *half = get_half(first->nextValue, half_length - 1);
+        struct Value *half = get_half(first->nextValue, half_length + rest - 1);
 
-        first = merge_sort(first, half_length);
+        first = merge_sort(first, half_length + rest);
 
-        half = merge_sort(half, half_length + rest);
+        half = merge_sort(half, half_length);
 
         return merge(first, half);
     }
