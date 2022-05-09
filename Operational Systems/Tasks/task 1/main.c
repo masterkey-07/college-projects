@@ -45,8 +45,6 @@ int main(int argc, char const *argv[])
 
         pid = fork();
 
-        printf("HI\n");
-
         int ret;
 
         if (pid != 0)
@@ -56,6 +54,7 @@ int main(int argc, char const *argv[])
             }
             else
             {
+                printf("HI A\n");
                 close(fd[1]);
                 dup2(fd[0], STDIN_FILENO);
                 close(fd[0]);
@@ -64,6 +63,7 @@ int main(int argc, char const *argv[])
         }
         else if (i == 0)
         {
+            printf("HI B\n");
             close(fd[0]);
             dup2(fd[1], STDOUT_FILENO);
             close(fd[1]);
@@ -71,6 +71,7 @@ int main(int argc, char const *argv[])
         }
         else if (i == number_commands - 1)
         {
+            printf("HI C\n");
             close(fd[1]);
             dup2(fd[0], STDIN_FILENO);
             close(fd[0]);

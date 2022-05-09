@@ -1,7 +1,5 @@
 from Bio.SeqIO import parse
 
-fasta = parse('./fasta.fno', 'fasta')
-
 
 def compare(segment_a, segment_b):
     count = 0
@@ -33,15 +31,8 @@ def join_segments(segment_a, segment_b):
 
     segment_count = equal_segment[0]
 
-    if (i < j):
-        position_a = equal_segment[1]
-        position_b = equal_segment[2]
-    else:
-        segment_c = segment_a
-        segment_a = segment_b
-        segment_b = segment_c
-        position_a = equal_segment[2]
-        position_b = equal_segment[1]
+    position_a = equal_segment[1]
+    position_b = equal_segment[2]
 
     segment_a_1 = segment_a[0:position_a]
     segment_a_2 = segment_a[position_a+segment_count:]
@@ -50,20 +41,33 @@ def join_segments(segment_a, segment_b):
     segment_b_2 = segment_b[position_b+segment_count:]
 
     if (len(segment_a_1) > len(segment_b_1)):
-        return segment_a_1 + segment_a[position_a: position_a+segment_count] + segment_a_2 + segment_b_1 + segment_b_2
+        return segment_a_1 + segment_a[position_a: position_a+segment_count] + segment_a_2 + segment_b_2
     else:
-        return segment_b_1 + segment_a[position_a: position_a+segment_count] + segment_b_2 + segment_a_1 + segment_a_2
+        return segment_b_1 + segment_a[position_a: position_a+segment_count] + segment_b_2 + segment_a_2
 
 
-segment_a = None
-segment_b = None
+def get_contig(fasta):
 
-for data in fasta:
-    segment_b = data.seq
+    segment_a = None
+    segment_b = None
 
-    if segment_a:
-        segment_a = join_segments(segment_a, segment_b)
-    else:
-        segment_a = segment_b
+    for data in fasta:
+        segment_b = data.seq
 
-print(segment_a)
+        if segment_a:
+            segment_a = join_segments(segment_a, segment_b)
+        else:
+            segment_a = segment_b
+
+    return str(segment_a)
+
+
+fasta = parse('./fasta.fno', 'fasta')
+
+output = open('./output.txt', 'w')
+
+contig = get_contig(fasta)
+
+output.write(contig)
+
+output.close()
