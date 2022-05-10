@@ -1,6 +1,10 @@
 #include <stdio.h>
 #include <stdlib.h>
 
+/* Aluna: Maria Clara Galvao
+    Período: Noturno
+    RA: 156592 */
+
 typedef struct Cliente
 {
     double dinheiro, *precos;
@@ -11,17 +15,32 @@ typedef TCliente *PCliente;
 
 PCliente lerCliente()
 {
+    int i;
+
     PCliente cliente = (PCliente)malloc(sizeof(TCliente));
+    if (cliente == NULL)
+    {
+        printf("Erro ao alocar!");
+        exit(0);
+    }
 
-    int i, j;
+    do
+    {
+        scanf("%lf", &cliente->dinheiro);
+    } while (cliente->dinheiro < 0);
 
-    scanf("%lf", &cliente->dinheiro);
-    scanf("%d", &cliente->quantidade);
+    do
+    {
+        scanf("%d", &cliente->quantidade);
+    } while (cliente->quantidade < 0 || cliente->quantidade > 100);
 
     cliente->precos = (double *)malloc(sizeof(double) * cliente->quantidade);
 
-    for (j = 0; j < cliente->quantidade; j++)
-        scanf("%lf", cliente->precos + j);
+    for (i = 0; i < cliente->quantidade; i++)
+        do
+        {
+            scanf("%lf", cliente->precos + i);
+        } while ((cliente->precos + 1) < 0);
 
     return cliente;
 }
@@ -29,32 +48,33 @@ PCliente lerCliente()
 void calcularCompra(PCliente cliente)
 {
     double dinheiro, *precos;
-    int quantidade, comprado, i, j;
+    int quantidade, comprado, i;
 
     dinheiro = cliente->dinheiro;
     quantidade = cliente->quantidade;
     precos = cliente->precos;
     comprado = 0;
 
-    for (j = 0; j < quantidade; j++)
-    {
-        if (dinheiro - *(precos + j) >= 0.0)
+    for (i = 0; i < quantidade; i++)
+        if (dinheiro - *(precos + i) >= 0.0)
         {
-            dinheiro -= *(precos + j);
+            dinheiro -= *(precos + i);
             comprado++;
         }
         else
             break;
-    }
 
     printf("%d %.2lf\n", comprado, dinheiro);
 }
 
-int main(int argc, char const *argv[])
+int main()
 {
     int numeroCliente, i;
 
-    scanf("%d", &numeroCliente);
+    do
+    {
+        scanf("%d", &numeroCliente);
+    } while (numeroCliente > 100 || numeroCliente == 0 || numeroCliente < 0);
 
     PCliente *clientes = (PCliente *)malloc(sizeof(PCliente) * numeroCliente);
 
