@@ -1,0 +1,8 @@
+Dealing with the problem of buffer (memory) consumption between threads.
+
+The sleep and wake program deals with this problem using a producer and a consumer.
+The consumer consume memory from the buffer, freeing it, and the producer fills the buffer.
+
+When the producer cannot produce more items, it sleeps and when the consumer free the buffer it 
+wakeup the producer and them sleep, and when the producer started inserting more items,
+ it wake up the consumer
