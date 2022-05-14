@@ -3,28 +3,6 @@
 #include <sys/wait.h>
 #include <unistd.h>
 
-#define BUF_LEN 16384
-
-int run_command(char **command)
-{
-    execvp(command[0], command);
-
-    return 0;
-}
-
-void test(int fd[2])
-{
-    char buffer[BUF_LEN];
-    int n;
-
-    do
-    {
-        bzero(buffer, BUF_LEN);
-        n = read(fd[0], buffer, BUF_LEN);
-        printf("%s", buffer);
-    } while (n > 0);
-}
-
 int *format_commands(int argc, char **argv, char *token, int *size)
 {
     int i;
@@ -47,58 +25,59 @@ int *format_commands(int argc, char **argv, char *token, int *size)
     return positions;
 }
 
-void dup_fd(int fd[2], int sign)
-{
-    if (sign == STDOUT_FILENO)
-    {
-        close(fd[0]);
-        dup2(fd[1], STDOUT_FILENO);
-        close(fd[1]);
-    }
-    else
-    {
-        close(fd[1]);
-        dup2(fd[0], STDIN_FILENO);
-        close(fd[0]);
-    }
-}
-
 int main(int argc, char const *argv[])
 {
     int i, number_commands, j;
     int *commands_position = format_commands(argc, argv, "|", &number_commands);
-    int fd[2];
-    int fd2[2];
+    int fds[number_commands - 1][2];
     int ret;
 
-    pipe(fd);
-    pipe(fd2);
-
-    pid_t pid[number_commands];
+    for (i = 0; i < number_commands - 1; i++)
+        pipe(fds[i]);
 
     char **command;
 
-    for (i = 0; i < number_commands - 1; i++)
+    if (number_commands > 1)
     {
-        command = &argv[*(commands_position + i)];
-
-        pid[i] = fork();
-
-        int ret;
-
-        if (pid[i] == 0)
+        for (i = 0; i < number_commands; i++)
         {
-            dup_fd(fd, STDOUT_FILENO);
+            command = &argv[*(commands_position + i)];
 
-            run_command(command);
+            if (fork() == 0)
+            {
+                for (j = 0; j < number_commands - 1; j++)
+                {
+                    if (j != i)
+                        close(fds[j][1]);
+
+                    if (j != i - 1)
+                        close(fds[j][0]);
+                }
+
+                if (i > 0)
+                {
+                    dup2(fds[i - 1][0], STDIN_FILENO);
+                    close(fds[i - 1][0]);
+                }
+
+                if (i < number_commands - 1)
+                {
+                    dup2(fds[i][1], STDOUT_FILENO);
+                    close(fds[i][1]);
+                }
+
+                execvp(command[0], command);
+            }
         }
-
-        dup_fd(fd, STDIN_FILENO);
     }
-
-    command = &argv[*(commands_position + i)];
-
-    run_command(command);
+    else
+    {
+        if (fork() == 0)
+        {
+            command = &argv[*(commands_position)];
+            execvp(command[0], command);
+        }
+    }
 
     return 0;
 }
