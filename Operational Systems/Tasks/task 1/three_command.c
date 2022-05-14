@@ -7,6 +7,9 @@
 
 int run_command(char **command)
 {
+    printf("%s\n", command[0]);
+    fflush(stdout);
+
     execvp(command[0], command);
 
     return 0;
@@ -71,8 +74,8 @@ int main(int argc, char const *argv[])
     int fd2[2];
     int ret;
 
-    pipe(fd);
-    pipe(fd2);
+    printf("p:%d\n", pipe(fd));
+    printf("p:%d\n", pipe(fd2));
 
     pid_t pid;
 
@@ -85,7 +88,10 @@ int main(int argc, char const *argv[])
     if (pid == 0)
     {
         dup_fd(fd, STDOUT_FILENO);
+
         run_command(command);
+
+        return 0;
     }
 
     command = &argv[*(commands_position + 1)];
@@ -94,11 +100,18 @@ int main(int argc, char const *argv[])
 
     if (pid == 0)
     {
+
         dup_fd(fd, STDIN_FILENO);
 
-        dup_fd(fd2, STDIN_FILENO);
+        dup_fd(fd2, STDOUT_FILENO);
+
+        fflush(stdout);
 
         run_command(command);
+
+        perror("Whatever\n");
+
+        _exit(1);
     }
 
     command = &argv[*(commands_position + 2)];
@@ -107,9 +120,18 @@ int main(int argc, char const *argv[])
 
     if (pid == 0)
     {
+        close(fd[0]);
+        close(fd[1]);
+
+        fflush(stdout);
+
         dup_fd(fd2, STDIN_FILENO);
 
         run_command(command);
+
+        perror("Whatever\n");
+
+        _exit(1);
     }
 
     return 0;

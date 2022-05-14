@@ -84,9 +84,6 @@ int main(int argc, char const *argv[])
 
         pid[i] = fork();
 
-        if (pid[i] != 0)
-            waitpid(pid[i], &ret, 0);
-
         int ret;
 
         if (pid[i] == 0)
@@ -133,6 +130,9 @@ int main(int argc, char const *argv[])
                 {
                     printf("read from fd | %d\n", i);
 
+                    close(fd2[0]);
+                    close(fd2[1]);
+
                     dup_fd(fd, STDIN_FILENO);
 
                     return run_command(command);
@@ -140,6 +140,9 @@ int main(int argc, char const *argv[])
                 else
                 {
                     printf("read from fd2 | %d\n", i);
+
+                    close(fd[0]);
+                    close(fd[1]);
 
                     dup_fd(fd2, STDIN_FILENO);
 
