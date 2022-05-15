@@ -70,13 +70,10 @@ int main(int argc, char const *argv[])
             }
         }
     }
-    else
+    else if (fork() == 0)
     {
-        if (fork() == 0)
-        {
-            command = &argv[*(commands_position)];
-            execvp(command[0], command);
-        }
+        command = &argv[*(commands_position)];
+        execvp(command[0], command);
     }
 
     return 0;
