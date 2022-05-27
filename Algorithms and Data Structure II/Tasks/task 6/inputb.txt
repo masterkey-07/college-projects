@@ -1,0 +1,4 @@
+6
+banana tomate amora laranja limao jabuticaba
+3
+1 2 5
