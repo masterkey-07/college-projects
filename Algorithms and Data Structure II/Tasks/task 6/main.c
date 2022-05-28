@@ -51,18 +51,6 @@ int extract_max(string *strings, int *numbers, int length)
     return numbers[length];
 }
 
-int *heap_sort(string *strings, int *numbers, int length)
-{
-    int *output = (int *)malloc(sizeof(int) * length);
-
-    build_heap(strings, numbers, length);
-
-    while (length >= 0)
-        output[--length] = extract_max(strings, numbers, length);
-
-    return output;
-}
-
 int verify_string(string str)
 {
     int i = -1;
@@ -85,6 +73,22 @@ void print_strings(string *strings, int *numbers, int length)
     int i;
     for (i = 0; i < length; i++)
         printf("%s ", strings[numbers[i]]);
+}
+
+int *heap_sort(string *strings, int *numbers, int length)
+{
+    int *output = (int *)malloc(sizeof(int) * length);
+
+    build_heap(strings, numbers, length);
+
+    printf("build_heap: ");
+    print_strings(strings, numbers, length);
+    printf("\n");
+
+    while (length >= 0)
+        output[--length] = extract_max(strings, numbers, length);
+
+    return output;
 }
 
 int main(int argc, char const *argv[])
@@ -115,7 +119,7 @@ int main(int argc, char const *argv[])
 
     if (error >= 0)
     {
-        printf("a palavra %seh invalida", strings[error]);
+        printf("a palavra %s eh invalida", strings[error]);
 
         free_strings(strings, numbers_string);
 
@@ -123,10 +127,6 @@ int main(int argc, char const *argv[])
 
         return 0;
     }
-
-    printf("build_heap: ");
-    print_strings(strings, numbers, length);
-    printf("\n");
 
     numbers = heap_sort(strings, numbers, length);
 
