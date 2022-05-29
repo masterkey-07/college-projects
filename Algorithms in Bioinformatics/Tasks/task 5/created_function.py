@@ -1,19 +1,19 @@
 from Bio.SeqIO import parse
 
 matrix = {
-    'AA': 5,
-    'A-': -3,
-    'TA': -1,
-    'GA': -2,
-    'CA': -1,
     'TT': 5,
+    'GG': 5,
+    'CC': 5,
+    'AA': 5,
+    'TA': -1,
     'T-': -1,
+    'CA': -1,
     'TG': -2,
     'TC': -2,
-    'GG': 5,
+    'GA': -2,
     'G-': -2,
+    'A-': -3,
     'GC': -3,
-    'CC': 5,
     'C-': -4
 }
 
@@ -42,7 +42,7 @@ def calculate_sequences(seq_a, seq_b):
 
 data = parse('./input.fasta', 'fasta')
 
-file = open('./output.txt', 'w')
+file = open('./created_output.txt', 'w')
 
 fasta = []
 
