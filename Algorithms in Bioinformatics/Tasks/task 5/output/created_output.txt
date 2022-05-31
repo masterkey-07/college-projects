@@ -1,2 +1,0 @@
-seq1.1 x seq1.2 : identity : 82.5%; score : 452; mean score : 3.77
-seq2.1 x seq2.2 : identity : 91.67%; score : 267; mean score : 4.45
