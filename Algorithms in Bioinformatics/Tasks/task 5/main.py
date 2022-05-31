@@ -1,5 +1,6 @@
 from Bio.SeqIO import parse
 from Bio.pairwise2 import align
+
 from Bio.pairwise2 import format_alignment
 
 
@@ -70,8 +71,6 @@ def align_pairwise(seq_a, seq_b):
 
     score_result = align.localds(seq_a, seq_b, matrix, -2, -
                                  2, one_alignment_only=True)
-
-    print(format_alignment(*score_result[0], full_sequences=True))
 
     return calculate_result(score_result[0][2], identity_result[0][2], len(seq_a))
 
