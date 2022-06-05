@@ -88,8 +88,9 @@ int main(int argc, char const *argv[])
     {
         printf("%s\n", strings[i]);
         free(strings[i]);
-        free(output[i]);
     }
+
+    free(output);
 
     return 0;
 }
