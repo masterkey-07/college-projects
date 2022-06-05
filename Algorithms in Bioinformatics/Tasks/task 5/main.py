@@ -1,8 +1,6 @@
 from Bio.SeqIO import parse
 from Bio.pairwise2 import align
 
-from Bio.pairwise2 import format_alignment
-
 
 def get_matrix():
     matrix = {}
