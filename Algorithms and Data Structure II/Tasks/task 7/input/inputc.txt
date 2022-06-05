@@ -1,0 +1,12 @@
+10
+banana
+amora
+jabuticaba
+acerola
+cabeluda
+jambo
+abacaxi
+laranja
+limao
+abacate
+1 4
