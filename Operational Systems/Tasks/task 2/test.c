@@ -17,27 +17,13 @@ void change(key **k, int i)
 
 int main(int argc, char const *argv[])
 {
-    key *k = (key *)malloc(sizeof(k));
-    k->key = (int *)malloc(sizeof(int));
-    k->key = 0;
+    char *x = "abc";
 
-    key *ka = (key *)malloc(sizeof(k));
-    ka->key = (int *)malloc(sizeof(int));
-    ka->key = 1;
+    printf("%s\n", x);
 
-    key *kb = (key *)malloc(sizeof(k));
-    kb->key = (int *)malloc(sizeof(int));
-    kb->key = 2;
+    x = "dsdsads";
 
-    key **kl = (key **)malloc(sizeof(*k) * 3);
-
-    kl[0] = k;
-    kl[1] = ka;
-    kl[2] = kb;
-
-    change(kl, 2);
-
-    printf("%d\n", kl[2]->key);
+    printf("%s\n", x);
 
     return 0;
 }

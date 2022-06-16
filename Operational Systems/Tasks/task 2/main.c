@@ -9,8 +9,8 @@
 // CONSTANTS
 #define INPUT_FILE "input.txt"
 #define NUMBER_REDUCERS 26
-#define NUMBER_MAPPERS 8
-#define BUFFER_SIZE 1024
+#define NUMBER_MAPPERS 3
+#define BUFFER_SIZE 100
 
 // STRUCTS
 struct word_counter
@@ -54,7 +54,7 @@ struct reducer_args
 {
     int index;
     list_text **list;
-    char ***buffer;
+    char **buffer;
     sem_t *full_buffer;
     sem_t *empty_buffer;
     sem_t *mutex_sem;
@@ -97,28 +97,6 @@ list_wc *count_word(list_wc *head, char *key)
     }
 }
 
-list_text *pop_text(list_text *head, char *text)
-{
-
-    if (head != NULL)
-    {
-        text = (char *)malloc(sizeof(head->text));
-
-        strcpy(text, head->text);
-
-        list_text *next = head->next;
-
-        free(head);
-
-        return next;
-    }
-    else
-    {
-        text = NULL;
-        return NULL;
-    }
-}
-
 list_text *push_text(list_text *head, char *text)
 {
 
@@ -131,9 +109,36 @@ list_text *push_text(list_text *head, char *text)
     return new;
 }
 
-void *mapper(void *args)
+void post_item(char *token, mapper_args *map_args)
+{
+    int position;
+
+    token[0] = tolower(token[0]);
+
+    position = (int)token[0];
+
+    position -= 97;
+
+    sem_wait(map_args->empty_buffer[position]);
+    sem_wait(map_args->mutex_sems[position]);
+
+    map_args->buffer[position][*map_args->writer[position]] = token;
+    *map_args->writer[position] = (*map_args->writer[position] + 1) % BUFFER_SIZE;
+
+    sem_post(map_args->mutex_sems[position]);
+    sem_post(map_args->full_buffer[position]);
+}
+
+int countlist(list_text *lt)
 {
 
+    if (lt != NULL)
+        return 1 + countlist(lt->next);
+    return 0;
+}
+
+void *mapper(void *args)
+{
     mapper_args *map_args = (mapper_args *)args;
 
     char *text;
@@ -148,78 +153,66 @@ void *mapper(void *args)
 
         char *token = strtok(text, " ");
 
-        token[0] = tolower(token[0]);
-
-        position = token[0] - 97;
-
-        sem_wait(map_args->empty_buffer[position]);
-        sem_wait(map_args->mutex_sems[position]);
-
-        map_args->buffer[position][*map_args->writer[position]] = token;
-
-        printf("write word : %s at %d\n", map_args->buffer[position][*map_args->writer[position]], *map_args->writer);
-
-        *map_args->writer = (*map_args->writer[position] + 1) % BUFFER_SIZE;
-
-        sem_post(map_args->mutex_sems[position]);
-        sem_post(map_args->full_buffer[position]);
+        post_item(token, map_args);
 
         while (token)
         {
             token = strtok(NULL, " ");
 
             if (token != NULL)
-            {
-                token[0] = tolower(token[0]);
-
-                sem_wait(map_args->empty_buffer[position]);
-                sem_wait(map_args->mutex_sems[position]);
-
-                map_args->buffer[position][*map_args->writer[position]] = token;
-
-                printf("write word : %s at %d by %d\n", map_args->buffer[position][*map_args->writer[position]], *map_args->writer[position], map_args->writer[position]);
-
-                *map_args->writer = (*map_args->writer[position] + 1) % BUFFER_SIZE;
-
-                sem_post(map_args->mutex_sems[position]);
-                sem_post(map_args->full_buffer[position]);
-            }
+                post_item(token, map_args);
         }
     }
+
+    printf("DONE\n");
+}
+
+void consume_item(reducer_args *reduce_args)
+{
+    sem_wait(reduce_args->full_buffer);
+    sem_wait(reduce_args->mutex_sem);
+
+    printf("consume %c %s\n", (char)97 + reduce_args->index, reduce_args->buffer[*reduce_args->reader]);
+    if (reduce_args->result == NULL)
+        reduce_args->result = count_word(reduce_args->result, reduce_args->buffer[*reduce_args->reader]);
+    else
+        count_word(reduce_args->result, reduce_args->buffer[*reduce_args->reader]);
+
+    *reduce_args->reader = (*reduce_args->reader + 1) % BUFFER_SIZE;
+
+    sem_post(reduce_args->mutex_sem);
+    sem_post(reduce_args->empty_buffer);
 }
 
 void *reducer(void *args)
 {
-    int i, stop = 1, status;
+    int i, stop = 1, status = 0;
     reducer_args *reduce_args = (reducer_args *)args;
 
     while (1)
     {
-        for (i = 0; i < NUMBER_MAPPERS; i++)
-            if (reduce_args->list[i] != NULL)
-                stop = 0;
+        printf("%d\n", reduce_args->index);
 
-        if (stop == 1)
+        while (status == 0)
         {
+            printf("%d\n", reduce_args->index);
+            stop = 1;
             sem_getvalue(reduce_args->full_buffer, &status);
-            if (status == 0)
+
+            for (i = 0; i < NUMBER_MAPPERS; i++)
+                if (reduce_args->list[i] != NULL)
+                {
+                    printf("%d\n", countlist(reduce_args->list[i]));
+                    stop = 0;
+                }
+            if (stop == 1)
+            {
+                printf("dasdasdadsa\n");
                 pthread_exit(NULL);
+            }
         }
 
-        sem_wait(reduce_args->full_buffer);
-        sem_wait(reduce_args->mutex_sem);
-
-        printf("reducer %c ; word : %s at %d\n", (char)97 + reduce_args->index, reduce_args->buffer[reduce_args->index][*reduce_args->reader], *reduce_args->reader);
-
-        if (reduce_args->result == NULL)
-            reduce_args->result = count_word(reduce_args->result, reduce_args->buffer[reduce_args->index][*reduce_args->reader]);
-        else
-            count_word(reduce_args->result, reduce_args->buffer[reduce_args->index][*reduce_args->reader]);
-
-        *reduce_args->reader = (*reduce_args->reader + 1) % BUFFER_SIZE;
-
-        sem_post(reduce_args->mutex_sem);
-        sem_post(reduce_args->empty_buffer);
+        consume_item(reduce_args);
     }
 }
 
@@ -254,16 +247,23 @@ int main(int argc, char const *argv[])
 
     list_text **list = (list_text **)malloc(sizeof(list_text *) * NUMBER_MAPPERS);
 
-    list[index] = push_text(list[index], token);
+    list[index] = push_text(NULL, token);
 
     index = (index + 1) % NUMBER_MAPPERS;
+
+    int c = 1;
 
     while (token)
     {
         list[index] = push_text(list[index], token);
         token = strtok(NULL, delimiter);
         index = (index + 1) % NUMBER_MAPPERS;
+        c++;
     }
+
+    c = countlist(list[0]);
+
+    printf("count : %d\n", c);
 
     char ***buffer = (char ***)malloc(sizeof(char **) * NUMBER_REDUCERS);
 
@@ -318,7 +318,7 @@ int main(int argc, char const *argv[])
     {
         reduce_args[index] = (reducer_args *)malloc(sizeof(reducer_args));
 
-        reduce_args[index]->buffer = buffer;
+        reduce_args[index]->buffer = buffer[index];
         reduce_args[index]->empty_buffer = empty[index];
         reduce_args[index]->full_buffer = full[index];
         reduce_args[index]->index = index;
@@ -330,13 +330,14 @@ int main(int argc, char const *argv[])
         pthread_create(&consumers[index], NULL, reducer, reduce_args[index]);
     }
 
-    printf("HIIIIIIIIIIIIIIIIIIIIIIIIIIIIIIIIII\n");
+    for (index = 0; index < NUMBER_MAPPERS; index++)
+        pthread_join(&producers[index], NULL);
 
     list_wc *result;
 
     for (index = 0; index < NUMBER_REDUCERS; index++)
     {
-        pthread_join(consumers[index], NULL);
+        pthread_join(&consumers[index], NULL);
 
         result = reduce_args[index]->result;
 
@@ -347,6 +348,5 @@ int main(int argc, char const *argv[])
             result = result->next;
         }
     }
-
     return 0;
 }
