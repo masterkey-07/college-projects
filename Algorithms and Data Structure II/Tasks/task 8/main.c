@@ -163,6 +163,8 @@ tree *remove_node(tree *node)
             father->right_node = child->right_node;
 
             father->balance++;
+
+            free(child);
         }
         else
         {
