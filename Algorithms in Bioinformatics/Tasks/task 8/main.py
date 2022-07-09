@@ -11,17 +11,26 @@ def get_value(a, b):
         return -3
 
 
-def get_score(matrix, i, j, seq1, seq2):
+def get_score(matrix, seqs, i, j, new_seqs):
     value = matrix[i][j]
 
     if (value == 0):
         return 0
-    elif (abs(value - matrix[i - 1][j]) == 4):
-        return value + get_score(matrix, i-1, j)
-    elif (abs(value - matrix[i][j-1]) == 4):
-        return value + get_score(matrix, i, j-1)
-    else:
-        return value + get_score(matrix, i-1, j-1)
+
+    if ((value - matrix[i - 1][j - 1] == 5 and seqs[0][i] == seqs[1][j]) or value - matrix[i - 1][j - 1] == -3):
+        new_seqs[0].append(seqs[0][i])
+        new_seqs[1].append(seqs[1][j])
+        return value + get_score(matrix, seqs, i-1, j-1, new_seqs)
+    elif (value - matrix[i][j-1] == -4):
+        new_seqs[0].append('-')
+        new_seqs[1].append(seqs[1][j])
+        return value + get_score(matrix, seqs, i, j-1, new_seqs)
+    elif (value - matrix[i - 1][j] == -4):
+        new_seqs[0].append(seqs[0][i])
+        new_seqs[1].append('-')
+        return value + get_score(matrix, seqs, i-1, j, new_seqs)
+
+    return 0
 
 
 seq1 = ['-', 'G', 'A', 'C', 'T', 'T', 'A', 'C']
@@ -37,6 +46,10 @@ for i in range(len(seq1)):
     for _ in seq2:
         matrix[i].append(0)
 
+positions = []
+
+highest = 0
+
 for i in range(1, len(seq1)):
     for j in range(1, len(seq2)):
         score = get_value(seq1[i], seq2[j])
@@ -47,21 +60,28 @@ for i in range(1, len(seq1)):
 
         value = maximum(value, 0)
 
+        if (highest < value):
+            highest = value
+            positions = [(i, j)]
+        elif (value == highest):
+            positions.append((i, j))
+
         matrix[i][j] = value
-
-
-for row in matrix:
-    print(row)
 
 new_seqs = [[], []]
 
 results = []
 
-best_result = 0
+highest_score = 0
 
-for i in range(len(matrix)):
+for i, j in positions:
     new_seqs = [[], []]
-    for j in range(len(matrix[i])):
-        result = get_score(matrix, i, j, new_seqs[0], new_seqs[1])
+    highest_score = get_score(matrix, [seq1, seq2], i, j, new_seqs)
+    results.append(new_seqs)
 
-        if (result == best_result)
+for result in results:
+    result.reverse()
+    for seq in result:
+        seq.reverse()
+        print(seq)
+    print()
