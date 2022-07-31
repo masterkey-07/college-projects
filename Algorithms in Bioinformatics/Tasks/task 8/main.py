@@ -33,9 +33,9 @@ def get_score(matrix, seqs, i, j, new_seqs):
     return 0
 
 
-seq1 = ['-', 'G', 'A', 'C', 'T', 'T', 'A', 'C']
+seq1 = ['-', 'G', 'G', 'A', 'T', 'C', 'G', 'A']
 
-seq2 = ['-', 'C', 'G', 'T', 'G', 'A', 'A', 'T', 'T', 'C', 'A', 'T']
+seq2 = ['-', 'G', 'A', 'A', 'T', 'T', 'C', 'A', 'G', 'T', 'T', 'A']
 
 matrix = []
 
@@ -79,9 +79,26 @@ for i, j in positions:
     highest_score = get_score(matrix, [seq1, seq2], i, j, new_seqs)
     results.append(new_seqs)
 
+
+file = open('./output.txt', 'w')
+
+file.write('matrix local alingment\n')
+
+for row in matrix:
+    for score in row:
+        file.write(f'{score} ')
+    file.write('\n')
+
+file.write('\n')
+
+file.write('possiveis alinhamentos\n')
+
+
 for result in results:
     result.reverse()
     for seq in result:
         seq.reverse()
-        print(seq)
-    print()
+        file.write(str(seq) + '\n')
+    file.write('\n')
+
+file.write(f'score : {highest_score}\n')
