@@ -1,0 +1,4 @@
+SGBD -> Sistema de Gerência de Banco de Dados -> SQLite, Oracle, etc.
+
+
+
