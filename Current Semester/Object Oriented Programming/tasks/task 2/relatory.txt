@@ -1,0 +1,1 @@
+O video passa de forma superficial sobre o um livro russo de OOP, chamado de Objetos Elegantes, ao qual traz uma idéia "purista" e até "radical" no desenvolvimento de projetos POO, rejeitando alguns conceitos como mutabilidade, váriaveis nulas, dentre outros conceitos.
