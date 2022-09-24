@@ -24,17 +24,9 @@ agressões
     props : tipo de problemas ocorrido, a data e a punição aplicada.
     relations : 0...n (presos), 1...1 (tipo_problemas_ocorridos)
 
-tipo_problemas_ocorrido
-    props : código, problemas ocorrido
-    relations : 0...n (agressões)
-
 obras
     props : código, título, código_gênero, nome do doador, adquirido.
     relations : 1...1(tipo_gênero)
-
-tipo_gênero
-    props : código, gênero
-    relations : 0...n(obras)
 
 retiradas
     props : data da retirada, data da devolução, código do livro e número do preso
@@ -58,9 +50,3 @@ tipo_arma
 
 arma 
     props :  código arma, tipo arma
-
-
-
-
-info :
-- 340 presos
