@@ -33,20 +33,39 @@ Tabela PROFESSOR
     Chaves Estrangeiras : (CodTit, CodDepto)
 
 Tabela PROFTURMA 
-    Chaves Primárias : AnoSem, CodDepto,. NumDisc, SiglaTur, CodProf)
-    Chaves Estrangeiras :
+    Chaves Primárias : (AnoSem, CodDepto, NumDisc, SiglaTur, CodProf)
+    Chaves Estrangeiras : (AnoSem, CodDepto, NumDisc, SiglaTur, CodProf)
 
 Tabela TITULACAO 
     Chaves Primárias : (CodTit)
     Chaves Estrangeiras : Nenhuma
 
 
-
-2. Identifique as chaves estrangeiras das relações
-
 3. Considerando a integridade referencial, quais são as validações ou ações que o SGBD relacional deve executar quando:
+
 a) um novo departamento é criado
+
+Verificar se não há quebra na integridade de Entidade.
+
 b) um departamento é excluído
+
+Verificar se não há quebra na integridade de Entidade.
+Verificar se não há nenhuma referência nas tabelas : DISCIPLINA, PREERQ, TURMA, HORARIO, PROFESSOR, PROFTURMA.
+Se houver, alterar em cascata todas as dependências.
+
 c) um departamento tem seu código alterado
+
+Verificar se não há quebra na integridade de Entidade.
+Verificar se não há nenhuma referência nas tabelas : DISCIPLINA, PREERQ, TURMA, HORARIO, PROFESSOR, PROFTURMA.
+Se houver, alterar em cascata todas as dependências.
+
+
 d) uma nova disciplina é criada
+
+Verificar se não há quebra na integridade de Entidade.
+
 e) uma disciplina é excluída
+
+Verificar se não há quebra na integridade de Entidade.
+Verificar se não há nenhuma referência nas tabelas : PREERQ, TURMA, HORARIO, PROFESSOR, PROFTURMA.
+Se houver, remover em cascata todas as dependências.
