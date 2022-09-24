@@ -1,0 +1,66 @@
+presos 
+    props : número de identificação, nome, RG, endereço para contato com familiares,
+            tempo de penaa ser cumprido,data de entrada no presídio, codigo_situação, periculosidade.
+
+    relations : 0...1 (celas), 0...n (movimento), 1...n (crimes), 0...n (agressões), 1...1(tipo_situação)
+
+tipo_situação
+    props : código, situação
+    relations : 0...n (presos)
+
+celas
+    props : código, tamanho, capacidade máxima, número atual de presos.
+    relations : 0...n (presos)
+
+movimento
+    props : situação antiga, situação atual, data da movimentação, motivo
+    relations : 1...1 (presos)
+
+crimes  
+    props : ?
+    relations : 1...1 (presos)
+
+agressões
+    props : tipo de problemas ocorrido, a data e a punição aplicada.
+    relations : 0...n (presos), 1...1 (tipo_problemas_ocorridos)
+
+tipo_problemas_ocorrido
+    props : código, problemas ocorrido
+    relations : 0...n (agressões)
+
+obras
+    props : código, título, código_gênero, nome do doador, adquirido.
+    relations : 1...1(tipo_gênero)
+
+tipo_gênero
+    props : código, gênero
+    relations : 0...n(obras)
+
+retiradas
+    props : data da retirada, data da devolução, código do livro e número do preso
+    relations : 1...n (obras), 1...n (presos)
+
+registros 
+    props : tipo de vigilância (corredores, guaritas, pátio), horário inicial e final e a identificação dos guardas responsáveis
+    relations :
+
+guardas 
+    props : identificação, tipo de vigilância
+
+arma_guarda 
+    props : código guarda, código da arma
+
+tipo_vigilância 
+    props : código tipo vigilância
+
+tipo_arma 
+    props : código tipo arma
+
+arma 
+    props :  código arma, tipo arma
+
+
+
+
+info :
+- 340 presos
