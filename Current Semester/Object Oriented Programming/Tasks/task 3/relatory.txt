@@ -1,0 +1,7 @@
+A aula trabalhará sobre uma algoritmo baseado em um livro sobre design de arquitetura em python.
+
+Nessa atividade, iremos implementar uma funcionalidade e um teste sobre ela.
+
+A atividade será simular um sistema de compras, aonde temos os "Batches" que representa um produto e os estado que ele está, e "Order Lines", aonde são associadas com esses "Batches".
+
+A função implementada será uma função que irá alocar uma "Order Line" dentro de uma série de "Batches" aonde deverá ser alocado o "Batche" mais favorável (mais recente), e então implementar um sistema de teste para verificar se esse caso funciona.
