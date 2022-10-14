@@ -1,0 +1,31 @@
+Questão 1) Passe ate a 3 forma normal:
+TAB ( CodEstrada, Cep, Km, NomeMun, SiglaUf, NomeUf, NomeEstrada)
+pk= CodEstrada, CEP
+
+
+SiglaUF-> NomeUF
+Cep-> NomeMun
+Cep-> SiglaUF
+CodEstrada->NomeEstrada
+CodEstrada,CEP-> KM
+
+Resposta :
+    Estrada (CodEstrada, Estrada)
+    UF (SiglaUF, NomeUF)
+    Kilometro (CodEstrada, CEP, KM)
+    Endereço (CEP, NomeMun, SiglaUF)
+
+Questão 2)
+Considere uma tabela de um banco de dados relacional, com os atributos A, B, C e D, sendo que
+A e B formam a chave primária dessa tabela. A partir dessa descrição, pode ser estabelecida a
+seguinte dependência funcional:
+
+(A) A → B.
+(B) A, B → C.
+(C) C, D → A.
+(D) C, D → A, B.
+(E) A, B, C → D.
+
+Resposta :
+    (B) : Por padrão, a ordem das propriedades da tabela é feita da seguinte forma : <dependente>, <dependência>, desde que o dependente ou dependentes sejam chaves primárias.
+          Portanto, seguindo esse padrão, no momento que temos a tabela A, B, C e D, e A e B são chaves primárias, logo C é dependência deles.

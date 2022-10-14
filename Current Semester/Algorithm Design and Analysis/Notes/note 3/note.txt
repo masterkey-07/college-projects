@@ -1,0 +1,36 @@
+Teorema Mestre
+T(n) = aT(n/b) + f(n); a >= 1, b > 1
+
+1 - Se f(n) = O(n ^ [logb A - E]); 
+    Se E > 0 => T(n) = O(n ^ [logb A - E])
+
+2 - Se f(n) = O(n ^ [logb A]); 
+    Se E = 0 => T(n) = O([n ^ (logb A)] * logN)
+
+
+2 - Se f(n) = O(n ^ [logb A]);
+    Se E > 0 && c < 1 && a*f(n/b) <= c*f(n) 
+    Então T(n) = O(f(n))
+
+-----------------
+0 - T(N) = 9 * T(N/3) + N
+1 - T(N) = 81 * T(N/9) + 2N
+2 - T(N) = 729 * T(N/27) + 3N
+3 - T(N) = 6561 * T(N/81) + 4N
+.
+.
+.
+i - T(N) = 9 ^ (i + 1) * T(N/(3 ^ (i + 1))) + (i + 1) * N
+
+i = log3 N
+----------------
+
+T(N) = 9 * T(N/3) + N
+a = 9
+b = 3
+
+n ^ (logb a) = log ^ (log3 9) = n²
+
+f(n) = n = O(n ^ (1.9))
+
+E = 0.1 => n ^ (2 - 0.1) => t(n) = O (n ^ (logb C)) = O(n²)

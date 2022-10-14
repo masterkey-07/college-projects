@@ -1,0 +1,43 @@
+<mxfile host="65bd71144e">
+    <diagram id="dDWpWt_pw1vET1a2-x_h" name="Page-1">
+        <mxGraphModel dx="678" dy="860" grid="1" gridSize="10" guides="1" tooltips="1" connect="1" arrows="1" fold="1" page="1" pageScale="1" pageWidth="1169" pageHeight="1654" math="0" shadow="0">
+            <root>
+                <mxCell id="0"/>
+                <mxCell id="1" parent="0"/>
+                <mxCell id="6" style="edgeStyle=none;html=1;entryX=0.5;entryY=0;entryDx=0;entryDy=0;" edge="1" parent="1" source="2" target="3">
+                    <mxGeometry relative="1" as="geometry"/>
+                </mxCell>
+                <mxCell id="2" value="Estado" style="swimlane;" vertex="1" parent="1">
+                    <mxGeometry x="140" y="90" width="200" height="130" as="geometry"/>
+                </mxCell>
+                <mxCell id="7" style="edgeStyle=none;html=1;entryX=0.5;entryY=0;entryDx=0;entryDy=0;" edge="1" parent="1" source="3" target="4">
+                    <mxGeometry relative="1" as="geometry"/>
+                </mxCell>
+                <mxCell id="3" value="Municipio" style="swimlane;startSize=23;" vertex="1" parent="1">
+                    <mxGeometry x="140" y="260" width="200" height="130" as="geometry"/>
+                </mxCell>
+                <mxCell id="4" value="Endereço" style="swimlane;startSize=23;" vertex="1" parent="1">
+                    <mxGeometry x="140" y="430" width="200" height="130" as="geometry"/>
+                </mxCell>
+                <mxCell id="8" value="Pessoa" style="swimlane;" vertex="1" parent="1">
+                    <mxGeometry x="630" y="80" width="200" height="130" as="geometry"/>
+                </mxCell>
+                <mxCell id="9" value="Entrevistado" style="swimlane;" vertex="1" parent="1">
+                    <mxGeometry x="400" y="240" width="200" height="130" as="geometry"/>
+                </mxCell>
+                <mxCell id="10" value="Parentesco" style="swimlane;" vertex="1" parent="1">
+                    <mxGeometry x="630" y="240" width="200" height="130" as="geometry"/>
+                </mxCell>
+                <mxCell id="11" value="Morto" style="swimlane;" vertex="1" parent="1">
+                    <mxGeometry x="860" y="240" width="200" height="130" as="geometry"/>
+                </mxCell>
+                <mxCell id="12" value="Pai/Mae" style="swimlane;" vertex="1" parent="1">
+                    <mxGeometry x="850" y="80" width="200" height="130" as="geometry"/>
+                </mxCell>
+                <mxCell id="13" value="Colaborador" style="swimlane;" vertex="1" parent="1">
+                    <mxGeometry x="630" y="390" width="200" height="130" as="geometry"/>
+                </mxCell>
+            </root>
+        </mxGraphModel>
+    </diagram>
+</mxfile>

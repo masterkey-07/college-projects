@@ -1,0 +1,96 @@
+CREATE TABLE `ossos_da_mao` (
+  `idossos_da_mao` int NOT NULL AUTO_INCREMENT,
+  `E` int DEFAULT NULL,
+  `D` int DEFAULT NULL,
+  `caixa_cod_caixa` varchar(50) NOT NULL,
+  `nome_osso` varchar(50) NOT NULL,
+  `?` int DEFAULT NULL,
+  PRIMARY KEY (`idossos_da_mao`),
+  KEY `fk_cod_caixa` (`caixa_cod_caixa`),
+  KEY `fk_status_cod_coluna` (`nome_osso`),
+  CONSTRAINT `fk_cod_caixa` FOREIGN KEY (`caixa_cod_caixa`) REFERENCES `caixa` (`cod_caixa`)
+) ENGINE=InnoDB  ;
+
+
+CREATE TABLE `ossos_longos` (
+  `idossos_longos` int NOT NULL AUTO_INCREMENT,
+  `epifise_proximal` int DEFAULT NULL,
+  `terco_proximal` int DEFAULT NULL,
+  `terco_medio` int DEFAULT NULL,
+  `terco_distal` int DEFAULT NULL,
+  `epifise_distal` int DEFAULT NULL,
+  `caixa_cod_caixa` varchar(50) NOT NULL,
+  `nome_osso` varchar(50) DEFAULT NULL,
+  PRIMARY KEY (`idossos_longos`),
+  KEY `cod_caixafk` (`caixa_cod_caixa`),
+  CONSTRAINT `cod_caixafk` FOREIGN KEY (`caixa_cod_caixa`) REFERENCES `caixa` (`cod_caixa`)
+) ENGINE=InnoDB  ;
+
+CREATE TABLE `ossos_pe` (
+  `idossos_pe` int NOT NULL AUTO_INCREMENT,
+  `E` int DEFAULT NULL,
+  `D` int DEFAULT NULL,
+  `caixa_cod_caixa` int NOT NULL,
+  `nome_osso` varchar(50) NOT NULL,
+  `?` int DEFAULT NULL,
+  PRIMARY KEY (`idossos_pe`),
+  KEY `caixa_cod_caixa` (`caixa_cod_caixa`),
+  KEY `status_cod_integro_fragmentado_ausente_dir_esq_indeter` (`nome_osso`),
+  CONSTRAINT `ossos_pe_ibfk_1` FOREIGN KEY (`caixa_cod_caixa`) REFERENCES `caixa` (`idcaixa`)
+) ENGINE=InnoDB  ;
+
+
+CREATE TABLE `outros` (
+  `idoutros` int NOT NULL AUTO_INCREMENT,
+  `estado_conservacao` varchar(200) DEFAULT NULL,
+  `efeitos_tafonomicos` varchar(200) DEFAULT NULL,
+  `cabelo` varchar(200) DEFAULT NULL,
+  `tecido_mole` varchar(200) DEFAULT NULL,
+  `insetos` varchar(200) DEFAULT NULL,
+  `reconstrucao_craniana` varchar(200) DEFAULT NULL,
+  `outras_construcoes` varchar(200) DEFAULT NULL,
+  `amostras` varchar(200) DEFAULT NULL,
+  `restos` varchar(200) DEFAULT NULL,
+  `elementos` varchar(200) DEFAULT NULL,
+  `idcaixa` int NOT NULL,
+  `obs` varchar(200) DEFAULT NULL,
+  PRIMARY KEY (`idoutros`),
+  KEY `fk_outros_caixa2_idx` (`idcaixa`),
+  CONSTRAINT `outros_ibfk_1` FOREIGN KEY (`idcaixa`) REFERENCES `caixa` (`idcaixa`)
+) ENGINE=InnoDB AUTO_INCREMENT=2  ;
+
+
+CREATE TABLE `pessoa` (
+  `cod_pessoa` int NOT NULL AUTO_INCREMENT,
+  `nome_pessoa` varchar(45) DEFAULT NULL,
+  PRIMARY KEY (`cod_pessoa`)
+) ENGINE=InnoDB AUTO_INCREMENT=5  ;
+
+CREATE TABLE `resp_caso` (
+  `caixa_id_caixa` int NOT NULL,
+  `responsavel` varchar(255) DEFAULT NULL,
+  PRIMARY KEY (`caixa_id_caixa`),
+  CONSTRAINT `fk_caixa_id_caixa` FOREIGN KEY (`caixa_id_caixa`) REFERENCES `caixa` (`idcaixa`)
+) ENGINE=InnoDB  ;
+
+
+CREATE TABLE `status` (
+  `idstatus` int NOT NULL,
+  `nome_osso` varchar(45) DEFAULT NULL,
+  `especificacao` varchar(15) DEFAULT NULL,
+  PRIMARY KEY (`idstatus`)
+) ENGINE=InnoDB  ;
+
+
+CREATE TABLE `vertebras_individuais` (
+  `idvertebras_individuais` int NOT NULL AUTO_INCREMENT,
+  `corpo` int DEFAULT NULL,
+  `arco_neural` int DEFAULT NULL,
+  `caixa_cod_caixa` int NOT NULL,
+  `nome_osso` varchar(50) NOT NULL,
+  PRIMARY KEY (`idvertebras_individuais`),
+  KEY `caixa_cod_caixa` (`caixa_cod_caixa`),
+  KEY `status_cod_integro_fragmentado_ausente_dir_esq_indeter` (`nome_osso`),
+  CONSTRAINT `vertebras_individuais_ibfk_1` FOREIGN KEY (`caixa_cod_caixa`) REFERENCES `caixa` (`idcaixa`)
+) ENGINE=InnoDB  ;
+

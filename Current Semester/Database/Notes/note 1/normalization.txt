@@ -1,0 +1,30 @@
+Não Normalizada
+    Possui tabelas aninhadas
+
+Primeira Forma Normal (1FN)
+    Eliminar aninhamento
+
+Segunda Forma Normal (2FN)
+    Eliminar Dependencia Funcional Parcial
+
+Terceira Forma Normal (3FN)
+    Dependencia Transitiva
+
+Conceitos
+    Dependencia Funcional Parcial
+        Alocações(#codProj, codEmp, nome, categ, sal, dataIni, tempoAloc)
+        codEmp + nome + categ + sal -> dependem entre si
+
+    Dependencia Funcional Total
+        Projetos (codProj, tipo, descr)
+        Alocações (#codProj, codEmp, ...)
+        codProj + codEmp -> dependem entre si
+
+    Dependencia Transitiva
+        Empregados (codEmp, Nome, categ, sal)
+        categ + sal -> categoria define salario
+
+    Dados Irrelevantes
+        Exemplo : ter uma coluna de numero de operadores sendo que é
+                  possivel calcular numa consulta
+    

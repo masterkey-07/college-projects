@@ -34,12 +34,12 @@ describe("Solution A", () => {
   });
 });
 
-// describe("Solution B", () => {
-//   it("test first input", () => {
-//     expect(new SolutionB(firtTest).resolve()).toEqual(firstResult);
-//   });
+describe("Solution B", () => {
+  it("test first input", () => {
+    expect(new SolutionB(firtTest).resolve()).toEqual(firstResult);
+  });
 
-//   it("test second input", () => {
-//     expect(new SolutionB(secondTest).resolve()).toEqual(secondResult);
-//   });
-// });
+  it("test second input", () => {
+    expect(new SolutionB(secondTest).resolve()).toEqual(secondResult);
+  });
+});
