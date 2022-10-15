@@ -4,7 +4,6 @@
 
 #define TRUE 1
 #define FALSE 0
-#define CITY_SIZE 1025
 
 struct Location
 {
@@ -16,7 +15,7 @@ typedef struct Location Location;
 
 struct Region
 {
-    int id, quantity, *map;
+    int quantity;
     Location location;
     struct List *relations;
 };
@@ -27,17 +26,29 @@ Region *readRegion(int index, int length)
 {
     Region *region = (Region *)malloc(sizeof(Region));
 
-    region->map = (int *)malloc(sizeof(int) * length);
-
-    region->map[index] = FALSE;
-
-    region->id = index;
-
     scanf("%d", &region->location.x);
     scanf("%d", &region->location.y);
     scanf("%d", &region->quantity);
 
     return region;
+}
+
+struct List
+{
+    Region *item;
+    struct List *next;
+};
+
+typedef struct List List;
+
+List *push(List *list, Region *item)
+{
+    List *newList = (List *)malloc(sizeof(List));
+
+    newList->next = list;
+    newList->item = item;
+
+    return newList;
 }
 
 int max(int a, int b)
@@ -48,46 +59,131 @@ int max(int a, int b)
         return b;
 }
 
+int relatable(Location locationA, Location locationB, int size)
+{
+    int x = abs(locationA.x - locationB.x);
+    int y = abs(locationA.y - locationB.y);
+
+    int value = max(x, y);
+
+    return value <= size ? TRUE : FALSE;
+}
+
+void relate(Region *regionA, Region *regionB, int size)
+{
+    if (relatable(regionA->location, regionB->location, size * 2) == TRUE)
+    {
+        regionA->relations = push(regionA->relations, regionB);
+        regionB->relations = push(regionB->relations, regionA);
+    }
+}
+
+int discover(int value, int d)
+{
+    return value - d > 0 ? value - d : 0;
+}
+
+void resolve(Region *region, Location *location, int *quantity, int d)
+{
+    location->x = discover(region->location.x, d);
+    location->y = discover(region->location.y, d);
+    *quantity = region->quantity;
+
+    List *selected = region->relations;
+
+    int counter;
+    Location area;
+
+    while (selected != NULL)
+    {
+        counter = region->quantity + selected->item->quantity;
+
+        area.x = discover(max(region->location.x, selected->item->location.x), d);
+        area.y = discover(max(region->location.y, selected->item->location.y), d);
+
+        List *relations = region->relations;
+
+        while (relations != NULL)
+        {
+            if (relations->item != region && relations->item != selected->item)
+                if (relatable(area, relations->item->location, d) == TRUE)
+                    counter += relations->item->quantity;
+
+            relations = relations->next;
+        }
+
+        if (*quantity < counter)
+        {
+            location->x = area.x;
+            location->y = area.y;
+            *quantity = counter;
+        }
+
+        selected = selected->next;
+    }
+}
+
 int main(int argc, char const *argv[])
 {
-    int d, number_points, i, j;
+    int test_size, number_points, i, j;
 
-    scanf("%d", &d);
+    scanf("%d", &test_size);
     scanf("%d", &number_points);
 
     Region **regions = (Region **)malloc(sizeof(Region *) * number_points);
 
     for (i = 0; i < number_points; i++)
-        regions[i] = readRegion(i, number_points);
-
-    int x, y, rX, rY, rQ = 0, count = 0;
-
-    Region *region;
-
-    for (x = 0; x < CITY_SIZE; x++)
     {
-        for (y = 0; y < CITY_SIZE; y++)
+        Region *newRegion = readRegion(i, number_points);
+
+        for (j = 0; j < i; j++)
+            relate(regions[j], newRegion, test_size);
+
+        regions[i] = newRegion;
+    }
+
+    Location location, output;
+
+    output.x = 0;
+    output.y = 0;
+
+    int quantity = 0, outputQuantity = 0;
+
+    for (i = 0; i < number_points; i++)
+    {
+        location.x = 0;
+        location.y = 0;
+        quantity = 0;
+
+        resolve(regions[i], &location, &quantity, test_size);
+
+        if (quantity > outputQuantity)
         {
-            count = 0;
-
-            for (i = 0; i < number_points; i++)
+            outputQuantity = quantity;
+            output.x = location.x;
+            output.y = location.y;
+        }
+        else if (quantity == outputQuantity)
+        {
+            if (location.x + location.y < output.x + output.y)
             {
-                Location location = regions[i]->location;
-
-                if (max(abs(location.x - x), abs(location.y - y)) <= d)
-                    count += regions[i]->quantity;
+                outputQuantity = quantity;
+                output.x = location.x;
+                output.y = location.y;
             }
-
-            if (count > rQ)
+            else if (location.x + location.y == output.x + output.y)
             {
-                rQ = count;
-                rX = x;
-                rY = y;
+                if (location.x < output.y)
+                {
+                    outputQuantity = quantity;
+                    output.x = location.x;
+                    output.y = location.y;
+                }
             }
         }
     }
 
-    printf("%d %d %d\n", rX, rY, rQ);
+    printf("%d %d %d\n", output.x, output.y, outputQuantity);
 
     return 0;
 }

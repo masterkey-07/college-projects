@@ -5,8 +5,8 @@
   "main": "index.js",
   "scripts": {
     "start": "yarn build && yarn test && yarn result",
-    "test": "./main.exe < input/A.txt && echo '\n' && ./main.exe < input/B.txt",
-    "result": "cat output/A.txt && echo '\n' && cat output/B.txt && echo '\n'",
+    "test": "./main.exe < input/C.txt",
+    "result": "cat output/C.txt && echo '\n'",
     "build": "gcc ./main.c -o main.exe"
   },
   "keywords": [],
