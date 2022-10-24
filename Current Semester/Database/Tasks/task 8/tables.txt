@@ -1,0 +1,67 @@
+Antemortem
+    Id 
+    Id Desaparecido (Pessoa->Id)
+
+Pessoa
+    Id
+    Nome 
+
+Pessoas do Caso 
+    Id 
+    Id Pessoa 
+    Genero 
+    
+
+Tipo de Relação
+    Id 
+    Descrição
+
+Relação
+    Id 
+    Id Pessoa
+    Id Antemortem (Antemortem->Id)
+    Id Tipo de Relação
+    Contatos 
+    Vivo
+
+Entrevista
+    Id
+    Id Antemortem
+    Id Entrevistador (Pessoa->Id)
+    Instituição
+    Data
+    Tipo de Local
+
+Colaborador
+    Id 
+    Id Entrevista (Entrevista->Id)
+    Id Relação (Relação->Id)
+    Id Endereço (Endereço->Id)
+    Genero
+    Email 
+    Telefone 
+    Escolaridade
+    Observação
+    Data do Desaparecimento 
+    Descrição do Desaparecimento
+    Pessoas Presentes?
+    Id Tipo Relação (Tiop Relação -> Id)
+
+
+
+
+
+
+Estado 
+    Id
+    Nome
+
+Municipio
+    Id
+    Id Estado (Estado->Id)
+    Nome
+
+Endereço
+    Id
+    Id Municipio (Municipio->Id)
+    Nome
