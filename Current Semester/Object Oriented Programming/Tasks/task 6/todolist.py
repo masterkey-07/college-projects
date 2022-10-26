@@ -9,6 +9,7 @@ class TodoList:
 
     def add(self, item: TodoItem):
         self.list.append(item)
+        self.list.sort(reverse=True, key=lambda item: item.priority.value)
 
     def get(self, index):
         return self.list[index]
@@ -29,8 +30,3 @@ class TodoList:
         for item in self.list:
             if item.description == description:
                 return item
-
-    def list_items(self):
-        self.list.sort(reverse=True, key=lambda item: item.priority.value)
-
-        return self.list

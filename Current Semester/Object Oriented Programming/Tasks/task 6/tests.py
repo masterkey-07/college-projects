@@ -67,8 +67,6 @@ def test_sort_item_by_priority():
     list.add(TodoItem('pay debts', Priority.HIGH))
     list.add(TodoItem('withdraw cash', Priority.MEDIAN))
 
-    items = list.list_items()
-
-    assert items[0].priority == Priority.HIGH
-    assert items[1].priority == Priority.MEDIAN
-    assert items[2].priority == Priority.LOW
+    assert list.get(0).priority == Priority.HIGH
+    assert list.get(1).priority == Priority.MEDIAN
+    assert list.get(2).priority == Priority.LOW
