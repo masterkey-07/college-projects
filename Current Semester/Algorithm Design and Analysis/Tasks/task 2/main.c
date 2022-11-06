@@ -1,17 +1,10 @@
 #include <stdio.h>
 #include <stdlib.h>
 
-struct Item
-{
-    int index;
-    int value;
-};
-
-typedef struct Item Item;
-
 struct List
 {
     int item;
+    int index;
     struct List *next;
 };
 
@@ -26,19 +19,15 @@ struct Queue
 
 typedef struct Queue Queue;
 
-Item **create_item_list(int length)
+List *create_list(int item, int index, List *next)
 {
-    return (Item **)malloc(sizeof(Item *) * length);
-}
+    List *list = (List *)malloc(sizeof(List));
 
-Item *create_item(int value, int index)
-{
-    Item *item = (Item *)malloc(sizeof(Item));
+    list->item = item;
+    list->index = index;
+    list->next = next;
 
-    item->index = index;
-    item->value = value;
-
-    return item;
+    return list;
 }
 
 Queue *create_queue()
@@ -52,38 +41,25 @@ Queue *create_queue()
     return queue;
 }
 
-List *create_list(int item)
+void push(Queue *queue, int item, int index)
 {
-    List *list = (List *)malloc(sizeof(List));
+    List *new_list = create_list(item, index, NULL);
 
-    list->item = item;
-    list->next = NULL;
-
-    return list;
-}
-
-void push(Queue *queue, int item)
-{
     queue->length++;
 
     if (queue->length == 1)
     {
-        List *new_list = create_list(item);
-
         queue->front = new_list;
         queue->end = new_list;
     }
     else
     {
-        List *new_list = create_list(item);
-
         queue->end->next = new_list;
-
         queue->end = new_list;
     }
 }
 
-int pop(Queue *queue)
+int dequeue(Queue *queue)
 {
     if (queue->length == 0)
         return 0;
@@ -119,96 +95,42 @@ int pop(Queue *queue)
 
 Queue **build_queues(int number_list, int *total)
 {
-    int length, input, i, j;
+    int length, input, index, i;
 
     Queue **queues = (Queue **)malloc(sizeof(Queue *) * number_list);
 
-    for (i = 0; i < number_list; i++)
+    for (index = 0; index < number_list; index++)
     {
         scanf("%d", &length);
 
         *total += length;
 
-        queues[i] = create_queue();
+        queues[index] = create_queue();
 
-        for (j = 0; j < length; j++)
+        for (i = 0; i < length; i++)
         {
             scanf("%d", &input);
-            push(queues[i], input);
+            push(queues[index], input, index);
         }
     }
 
     return queues;
 }
 
-Item **build_items(int number_list, Queue **queues, int total)
+List *merge(List *list, List *append)
 {
-    int index = 0, i;
+    if (append == NULL)
+        return list;
 
-    Item **items = create_item_list(total);
+    if (list == NULL)
+        return create_list(append->item, append->index, merge(list, append->next));
 
-    List *list;
+    if (list->item > append->item)
+        return create_list(append->item, append->index, merge(list, append->next));
 
-    for (i = 0; i < number_list; i++)
-    {
-        list = queues[i]->front;
+    list->next = merge(list->next, append);
 
-        while (list != NULL)
-        {
-            items[index] = create_item(list->item, i);
-            list = list->next;
-
-            index++;
-        }
-    }
-
-    return items;
-}
-
-void merge(Item **array, int start, int middle, int end)
-{
-    int length_a = middle - start + 1;
-    int length_b = end - middle;
-
-    int i, j, k;
-
-    Item **items_a = create_item_list(length_a);
-
-    Item **items_b = create_item_list(length_b);
-
-    for (i = 0; i < length_a; i++)
-        items_a[i] = array[start + i];
-
-    for (i = 0; i < length_b; i++)
-        items_b[i] = array[middle + i + 1];
-
-    i = 0;
-    j = 0;
-    k = start;
-
-    while (i < length_a && j < length_b)
-        if (items_a[i]->value <= items_b[j]->value)
-            array[k++] = items_a[i++];
-        else
-            array[k++] = items_b[j++];
-
-    while (i < length_a)
-        array[k++] = items_a[i++];
-
-    while (j < length_b)
-        array[k++] = items_b[j++];
-}
-
-void merge_sort(Item **array, int start, int end)
-{
-    if (end <= start)
-        return;
-
-    int middle = (start + end) / 2;
-
-    merge_sort(array, start, middle);
-    merge_sort(array, middle + 1, end);
-    merge(array, start, middle, end);
+    return list;
 }
 
 int main(int argc, char const *argv[])
@@ -220,19 +142,23 @@ int main(int argc, char const *argv[])
 
     Queue **queues = build_queues(number_list, &total);
 
-    Item **items = build_items(number_list, queues, total);
+    int output = 0;
 
-    merge_sort(items, 0, total - 1);
-
-    for (index = 0; index < iterations - 1; index++)
-        pop(queues[items[index]->index]);
-
-    int sum = 0;
+    List *list = NULL;
 
     for (index = 0; index < number_list; index++)
-        sum += pop(queues[index]);
+        list = merge(list, queues[index]->front);
 
-    printf("%d", sum);
+    for (index = 1; index < iterations; index++)
+    {
+        dequeue(queues[list->index]);
+        list = list->next;
+    }
+
+    for (index = 0; index < number_list; index++)
+        output += dequeue(queues[index]);
+
+    printf("%d", output);
 
     return 0;
 }
