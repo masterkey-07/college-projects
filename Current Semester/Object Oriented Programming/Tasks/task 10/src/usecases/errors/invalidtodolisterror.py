@@ -1,0 +1,2 @@
+class InvalidTodoListError(Exception):
+    pass
