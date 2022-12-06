@@ -1,0 +1,31 @@
+Usuário(pk chapa, senha, email, nome)
+
+Técnico(pk id,pk fk chapa)
+
+Comprador(pk id,pk fk chapa)
+
+Operador(pk id,pk fk chapa)
+
+Maquina(pk id, descrição, critico)
+
+Material(pk id, descrição, classe)
+
+Fornecedor(pk id, nome)
+
+Preventiva(pk id, fk id_maquina, periodicidade, meses, descrição)
+
+Nota(pk id,fk operador_criador, fk id_maquina, descrição, rejeitado, data de criação)
+
+Ordem(pk id,fk pk id_nota, tipo de ordem)
+
+PlanejamentoPreventiva(pk fk id_preventiva,pk fk id_nota)
+
+Fornece(pk fk id_material, pk fk id_fornecedor, preço)
+
+Consumo(pk fk id_material, pk fk id_ordem, pk fk id_maquina, quantidade)
+
+PedidoCompra(pk id, fk id_fornecedor, fk id_comprador, data criação, data de remessa, data de entrada, frete)
+
+Relatório(fk pk id_pedido, descrição)
+
+Requisito(pk fk id_material, pk fk id_ordem, pk fk id_compra, quantidade)
