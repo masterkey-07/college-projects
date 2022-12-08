@@ -1,5 +1,0 @@
-segundo prof -> essencia de poo é o polimorfismo
-
-objeto -> proprieades e ações
-
-
