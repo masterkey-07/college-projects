@@ -23,12 +23,21 @@ class TodoList:
 
     def complete_by_description(self, description):
         item = self.find(description)
+
         if item:
             item.complete()
             self.sort()
 
     def remove(self, index):
         self.list.pop(index)
+
+    def remove_by_description(self, description):
+        length = len(self.list)
+
+        for index in range(length):
+            if self.list[index].description == description:
+                self.remove(index)
+                return
 
     def size(self):
         return len(self.list)
@@ -50,6 +59,7 @@ class TodoList:
         if not item:
             return
         item.change_priority(new_priority)
+
         self.list.sort()
 
     def change_description(self, old_description, new_description):

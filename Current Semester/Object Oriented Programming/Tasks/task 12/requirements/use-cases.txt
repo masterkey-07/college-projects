@@ -31,6 +31,8 @@
   - handle duplicate item
 
 - change item priority
+
+new:
 - remove item from todo list
 
 - mark item as done

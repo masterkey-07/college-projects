@@ -1,2 +1,3 @@
 class DuplicateUserError(Exception):
-    pass
+    def __init__(self):
+        super().__init__("Duplicate User Error")
