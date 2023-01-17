@@ -1,0 +1,431 @@
+\begin{tabularx}{1\textwidth} {
+        | >{\raggedright\arraybackslash}X
+        | >{\centering\arraybackslash}X
+        | >{\centering\arraybackslash}X
+        | >{\raggedleft\arraybackslash}X |}
+    \hline
+    \multicolumn{4}{|c|}{Usuário}              \\
+    \hline
+    chapa & nome   & email            & nome   \\
+    \hline
+    1     & abc123 & pedro@gmail.com  & Pedro  \\
+    \hline
+    1     & abc123 & pedro@gmail.com  & Pedro  \\
+    \hline
+    2     & abc123 & maria@gmail.com  & Maria  \\
+    \hline
+    3     & abc123 & tom@gmail.com    & Tom    \\
+    \hline
+    4     & abc123 & erika@gmail.com  & Erika  \\
+    \hline
+    5     & abc123 & john@gmail.com   & John   \\
+    \hline
+    6     & abc123 & emilia@gmail.com & Emilia \\
+    \hline
+    7     & abc123 & robert@gmail.com & Robert \\
+    \hline
+    8     & abc123 & robert@gmail.com & José   \\
+    \hline
+    9     & abc123 & enzo@gmail.com   & Enzo   \\
+    \hline
+\end{tabularx}
+
+\vspace{1cm}
+
+\begin{tabularx}{1\textwidth} {
+        | >{\raggedright\arraybackslash}X
+        | >{\centering\arraybackslash}X
+        | >{\raggedleft\arraybackslash}X |}
+    \hline
+    \multicolumn{2}{|c|}{Técnico} \\
+    \hline
+    id & chapa                    \\
+    \hline
+    1  & 1                        \\
+    \hline
+    2  & 2                        \\
+    \hline
+    3  & 3                        \\
+    \hline
+\end{tabularx}
+
+\vspace{1cm}
+
+\begin{tabularx}{1\textwidth} {
+        | >{\raggedright\arraybackslash}X
+        | >{\centering\arraybackslash}X
+        | >{\raggedleft\arraybackslash}X |}
+    \hline
+    \multicolumn{2}{|c|}{Comprador} \\
+    \hline
+    id & chapa                      \\
+    \hline
+    1  & 4                          \\
+    \hline
+    2  & 5                          \\
+    \hline
+    3  & 6                          \\
+    \hline
+\end{tabularx}
+
+\vspace{1cm}
+
+\begin{tabularx}{1\textwidth} {
+        | >{\raggedright\arraybackslash}X
+        | >{\centering\arraybackslash}X
+        | >{\raggedleft\arraybackslash}X |}
+    \hline
+    \multicolumn{2}{|c|}{Operador} \\
+    \hline
+    id & chapa                     \\
+    \hline
+    1  & 7                         \\
+    \hline
+    2  & 8                         \\
+    \hline
+    3  & 9                         \\
+    \hline
+\end{tabularx}
+
+\vspace{1cm}
+
+
+\begin{tabularx}{1\textwidth} {
+        | >{\raggedright\arraybackslash}X
+        | >{\centering\arraybackslash}X
+        | >{\raggedleft\arraybackslash}X |}
+    \hline
+    \multicolumn{3}{|c|}{Máquina}               \\
+    \hline
+    id & descrição                    & critico \\
+    \hline
+    1  & Centro de Torneamento        & 1       \\
+    \hline
+    2  & Centro de Tratamento         & 1       \\
+    \hline
+    3  & Retificadora                 & 1       \\
+    \hline
+    4  & Máquina Jateamento           & 0       \\
+    \hline
+    5  & Tamboreamento                & 0       \\
+    \hline
+    6  & Prensa de Bancada Hidráulica & 1       \\
+    \hline
+\end{tabularx}
+
+\vspace{1cm}
+
+\begin{tabularx}{1\textwidth} {
+        | >{\raggedright\arraybackslash}X
+        | >{\centering\arraybackslash}X
+        | >{\raggedleft\arraybackslash}X |}
+    \hline
+    \multicolumn{3}{|c|}{Material}       \\
+    \hline
+    id & descrição          & classe     \\
+    \hline
+    1  & Motor              & Preventivo \\
+    \hline
+    2  & Modulo de Potencia & Preventivo \\
+    \hline
+    3  & Manta Cinza        & Consumo    \\
+    \hline
+    4  & Bomba Hidraulica   & Preventivo \\
+    \hline
+    5  & Cabo Conexão       & Corretivo  \\
+    \hline
+    6  & Filtro             & Consumo    \\
+    \hline
+    7  & Lampada            & Consumo    \\
+    \hline
+    8  & Valvula Pneumatica & Corretivo  \\
+    \hline
+\end{tabularx}
+
+\vspace{1cm}
+
+\begin{tabularx}{1\textwidth} {
+        | >{\raggedright\arraybackslash}X
+        | >{\centering\arraybackslash}X
+        | >{\raggedleft\arraybackslash}X |}
+    \hline
+    \multicolumn{2}{|c|}{Fornecedor} \\
+    \hline
+    id & nome                        \\
+    \hline
+    1  & NIKKEYPAR                   \\
+    \hline
+    2  & SIEMENS                     \\
+    \hline
+    3  & BOSCH                       \\
+    \hline
+    4  & OKUMA                       \\
+    \hline
+    5  & THEVAL                      \\
+    \hline
+    6  & NORTEL                      \\
+    \hline
+\end{tabularx}
+
+\vspace{1cm}
+
+\begin{tabularx}{1\textwidth} {
+        | >{\raggedright\arraybackslash}X
+        | >{\centering\arraybackslash}X
+        | >{\centering\arraybackslash}X
+        | >{\centering\arraybackslash}X
+        | >{\raggedleft\arraybackslash}X |}
+    \hline
+    \multicolumn{5}{|c|}{Preventiva}                                   \\
+    \hline
+    id & id\_maquina & periodicidade & meses   & descrição             \\
+    \hline
+    12 & 1           & SM            & Jan,Jun & Prevenção de Incêndio \\
+    \hline
+    13 & 2           & SM            & Jan,Jun & Prevenção de Incêndio \\
+    \hline
+    14 & 3           & SM            & Jan,Jun & Prevenção de Incêndio \\
+    \hline
+    15 & 2           & SM            & Jan,Jun & Prevenção de Incêndio \\
+    \hline
+    16 & 4           & SM            & Jan,Jun & Prevenção de Incêndio \\
+    \hline
+    17 & 5           & SM            & Jan,Jun & Prevenção de Incêndio \\
+    \hline
+    18 & 3           & AN            & Fev     & Troca de Motor        \\
+    \hline
+    19 & 5           & AN            & Fev     & Troca de Motor        \\
+    \hline
+    20 & 1           & AN            & Fev     & Troca de Motor        \\
+    \hline
+    21 & 4           & AN            & Fev     & Troca do Revestimento \\
+    \hline
+    22 & 6           & AN            & Fev     & Troca do Revestimento \\
+    \hline
+\end{tabularx}
+
+\vspace{1cm}
+
+\begin{tabularx}{1\textwidth} {
+        | >{\raggedright\arraybackslash}X
+        | >{\centering\arraybackslash}X
+        | >{\centering\arraybackslash}X
+        | >{\centering\arraybackslash}X
+        | >{\centering\arraybackslash}X
+        | >{\raggedleft\arraybackslash}X |}
+    \hline
+    \multicolumn{6}{|c|}{Nota}                                                    \\
+    \hline
+    id & id\_comprador & id\_maquina & descrição         & rejeitado & criação    \\
+    \hline
+    1  & 1             & 3           & Sons Altos        & 1         & 2023-01-11 \\
+    \hline
+    2  & 1             & 2           & Alta Temperatura  & 0         & 2023-01-12 \\
+    \hline
+    3  & 3             & 5           & Peça Caiu         & 1         & 2023-01-13 \\
+    \hline
+    4  & 2             & 5           & Alarme            & 0         & 2023-01-08 \\
+    \hline
+    5  & 2             & 4           & Baixa Temperatura & 0         & 2023-01-09 \\
+    \hline
+    6  & 2             & 2           & Alarme            & 1         & 2023-01-10 \\
+    \hline
+    7  & 1             & 3           & Alta Vibração     & 0         & 2023-01-10 \\
+    \hline
+    8  & 3             & 5           & Sons Altos        & 1         & 2023-01-11 \\
+    \hline
+    9  & 2             & 4           & Falta de Energia  & 0         & 2023-01-01 \\
+    \hline
+    10 & 1             & 6           & Painel Desligou   & 0         & 2023-01-05 \\
+    \hline
+\end{tabularx}
+
+\vspace{1cm}
+
+\begin{tabularx}{1\textwidth} {
+        | >{\raggedright\arraybackslash}X
+        | >{\centering\arraybackslash}X
+        | >{\raggedleft\arraybackslash}X |}
+    \hline
+    \multicolumn{3}{|c|}{Ordem} \\
+    \hline
+    id & id\_nota & tipo        \\
+    \hline
+    1  & 1        & ZMI         \\
+    \hline
+    2  & 2        & ZMG         \\
+    \hline
+    3  & 4        & ZMG         \\
+    \hline
+    4  & 9        & ZMI         \\
+    \hline
+    5  & 10       & ZMI         \\
+    \hline
+\end{tabularx}
+
+\vspace{1cm}
+
+\begin{tabularx}{1\textwidth} {
+        | >{\raggedright\arraybackslash}X
+        | >{\centering\arraybackslash}X
+        | >{\raggedleft\arraybackslash}X |}
+    \hline
+    \multicolumn{2}{|c|}{PlanejamentoPreventiva} \\
+    \hline
+    id\_preventiva & id\_nota                    \\
+    \hline
+    2              & 2                           \\
+    \hline
+    8              & 4                           \\
+    \hline
+\end{tabularx}
+
+\vspace{1cm}
+
+\begin{tabularx}{1\textwidth} {
+        | >{\raggedright\arraybackslash}X
+        | >{\centering\arraybackslash}X
+        | >{\raggedleft\arraybackslash}X |}
+    \hline
+    \multicolumn{3}{|c|}{FornecimentoMaterial} \\
+    \hline
+    id\_material & id\_fornecedor & preço      \\
+    \hline
+    2            & 1              & 32.0       \\
+    \hline
+    2            & 2              & 65.0       \\
+    \hline
+    3            & 2              & 43.0       \\
+    \hline
+    3            & 3              & 123.0      \\
+    \hline
+    4            & 3              & 87.0       \\
+    \hline
+    4            & 4              & 435.0      \\
+    \hline
+    5            & 4              & 49.0       \\
+    \hline
+    5            & 5              & 39.0       \\
+    \hline
+    6            & 5              & 21.0       \\
+    \hline
+    6            & 6              & 10.0       \\
+    \hline
+    7            & 6              & 100.0      \\
+    \hline
+    8            & 1              & 123.0      \\
+    \hline
+\end{tabularx}
+
+\vspace{1cm}
+
+\begin{tabularx}{1\textwidth} {
+        | >{\raggedright\arraybackslash}X
+        | >{\centering\arraybackslash}X
+        | >{\centering\arraybackslash}X
+        | >{\raggedleft\arraybackslash}X |}
+    \hline
+    \multicolumn{4}{|c|}{ConsumoMaterial}               \\
+    \hline
+    id\_material & id\_ordem & id\_maquina & quantidade \\
+    \hline
+    1            & 1         & 5           & 10         \\
+    \hline
+    2            & 3         & 4           & 1          \\
+    \hline
+    3            & 4         & 6           & 8          \\
+    \hline
+    4            & 1         & 1           & 1          \\
+    \hline
+    4            & 2         & 5           & 3          \\
+    \hline
+    5            & 4         & 1           & 1          \\
+    \hline
+    7            & 3         & 4           & 5          \\
+    \hline
+    8            & 2         & 6           & 2          \\
+    \hline
+\end{tabularx}
+
+\vspace{1cm}
+
+\begin{tabularx}{1\textwidth} {
+        | >{\raggedright\arraybackslash}X
+        | >{\centering\arraybackslash}X
+        | >{\centering\arraybackslash}X
+        | >{\centering\arraybackslash}X
+        | >{\centering\arraybackslash}X
+        | >{\centering\arraybackslash}X
+        | >{\raggedleft\arraybackslash}X |}
+    \hline
+    \multicolumn{7}{|c|}{PedidoCompra}                                                 \\
+    \hline
+    id & id\_fornecedor & id\_comprador & criação    & remessa    & entreda    & frete \\
+    \hline
+    1  & 1              & 1             & 2023-01-01 & 2023-01-10 & 2023-01-12 & 10.0  \\
+    \hline
+    2  & 2              & 1             & 2023-01-02 & 2023-02-01 & 2023-01-08 & 20.0  \\
+    \hline
+    3  & 3              & 2             & 2023-01-03 & 2023-03-01 &            & 30.0  \\
+    \hline
+    4  & 4              & 2             & 2023-01-04 & 2023-04-01 &            & 10.0  \\
+    \hline
+    5  & 5              & 3             & 2023-01-05 & 2023-05-01 &            & 33.0  \\
+    \hline
+    6  & 6              & 3             & 2023-01-06 & 2023-06-01 &            & 25.0  \\
+    \hline
+\end{tabularx}
+
+\vspace{1cm}
+
+
+\begin{tabularx}{1\textwidth} {
+        | >{\raggedright\arraybackslash}X
+        | >{\centering\arraybackslash}X
+        | >{\raggedleft\arraybackslash}X |}
+    \hline
+    \multicolumn{2}{|c|}{Relatório} \\
+    \hline
+    id\_pedido & id\_descrição      \\
+    \hline
+    1          & Material Correto   \\
+    \hline
+    2          & Material Incorreto \\
+    \hline
+\end{tabularx}
+
+\vspace{1cm}
+
+\begin{tabularx}{1\textwidth} {
+        | >{\raggedright\arraybackslash}X
+        | >{\centering\arraybackslash}X
+        | >{\centering\arraybackslash}X
+        | >{\raggedleft\arraybackslash}X |}
+    \hline
+    \multicolumn{4}{|c|}{Requisição}                   \\
+    \hline
+    id\_material & id\_ordem & id\_compra & quantidade \\
+    \hline
+    2            & 1         & 1          & 3          \\
+    \hline
+    2            & 2         & 2          & 6          \\
+    \hline
+    3            & 3         & 2          & 12         \\
+    \hline
+    4            & 3         & 3          & 8          \\
+    \hline
+    4            & 4         & 3          & 4          \\
+    \hline
+    5            & 4         & 4          & 4          \\
+    \hline
+    5            & 5         & 4          & 3          \\
+    \hline
+    6            & 5         & 5          & 2          \\
+    \hline
+    6            & 5         & 6          & 2          \\
+    \hline
+    7            & 1         & 6          & 1          \\
+    \hline
+    8            & 1         & 1          & 12         \\
+    \hline
+\end{tabularx}

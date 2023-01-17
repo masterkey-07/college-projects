@@ -1,0 +1,54 @@
+\subsection{Notas das Preventivas Planejadas de Máquinas Críticas}
+
+\begin{minted}{sql}
+    SELECT * FROM Nota n 
+    INNER JOIN PlanejamentoPreventiva pp ON pp.id_nota = n.id 
+    INNER JOIN Preventiva p ON p.id = pp.id_preventiva
+    INNER JOIN Maquina m ON m.id = p.id_maquina
+    WHERE m.critico = 1;
+\end{minted}
+\begin{tabularx}{1\textwidth} {
+        | >{\raggedright\arraybackslash}X
+        | >{\centering\arraybackslash}X
+        | >{\raggedleft\arraybackslash}X |}
+    \hline
+    \multicolumn{2}{|c|}{Resultado} \\
+    \hline
+    id & descrição                  \\
+    \hline
+    2  & Alta Temperatura           \\
+    \hline
+\end{tabularx}
+
+\vspace{1cm}
+
+\subsection{Consumo Total de Cada Material em Máquinas Críticas}
+
+\begin{minted}{sql}
+    SELECT m2.descrição , SUM(cm.quantidade) as total FROM ConsumoMaterial cm 
+    INNER JOIN Maquina m ON m.id = cm.id_maquina
+    INNER JOIN Material m2  ON m2.id = cm.id_material 
+    WHERE m.critico = 1
+    GROUP BY cm.id_material;
+\end{minted}
+\begin{tabularx}{1\textwidth} {
+        | >{\raggedright\arraybackslash}X
+        | >{\centering\arraybackslash}X
+        | >{\raggedleft\arraybackslash}X |}
+    \hline
+    \multicolumn{2}{|c|}{Resultado} \\
+    \hline
+    descrição          & total      \\
+    \hline
+    Manta Cinza        & 8          \\
+    \hline
+    Bomba Hidraulica   & 1          \\
+    \hline
+    Cabo Conexão       & 1          \\
+    \hline
+    Valvula Pneumatica & 2          \\
+    \hline
+\end{tabularx}
+
+\vspace{1cm}
+
