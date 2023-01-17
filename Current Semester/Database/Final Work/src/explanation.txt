@@ -1,27 +1,15 @@
 O Problema Abordado será a gestão de ordens de manutenção.
 Onde terá um processo de manutenção que permita o fluxo correto de trabalho e realizar a compra de materiais para o conserto das máquinas, garantindo o bom funcionamento delas para o operador.
-
 O Sistema tem um simples controle de usuários, guardando o nome, chapa, senha e email.
-
 Cada usuário pode ser um operador ou técnico ou comprador, cada um tendo um código único que representa seu cargo.
-
 Nesse sistema haverá um processo de manutenção que se baseará em notas de manutenção sobre uma máquina, que indicam algum problema ou alerta, ao qual podem virar ordens de manutenção se for crítico.
 Uma Nota, que contem seu código, descrição e a data de criação e se foi rejeitada e seu criador, pode ser criada por um operador que detectou algo incomum ou ser criada sobre uma preventiva de manutenção.
-
 Quando a nota se torna em uma ordem de manutenção, é definido um novo código para a ordem como a definição de qual tipo de ordem será efetuada, assim tendo um dia de encerramento quando for executada por um operador.
-
 E assim quando a ordem de manutenção for executada, haverá um consumo de uma material sobre uma máquina.
-
 Máquina terá seu código, descrição e se é critica. E Material terá seu código, descrição e classificação.
-
 Para haver o consumo do material sobre uma ordem de manutenção, primeiro é necessário requisitar sua compra, para a realização da compra é criada um Pedido de Compra ao qual será realizada com um comprador.
-
 Um Pedido de Compra tem o código da compra, data de criação do pedido, data prevista de entrega pelo fornecedor contratado e a data da entrega.
-
 Quando um pedido de compra é entregue, é feito um relatório dele contento uma descrição sobre o estado da entrega.
-
 O fornecedor tem o nome, código e localização. O fornecedor fornece materiais, aonde cada um deles tem um preço específico.
-
 Por fim, máquinas podem precisar de manutenções periódicas, então é definido preventivas, que tem a datas do mês que deve ser executado, sua periodicidade, qual máquina será feita a preventiva, e quem a criou.
-
 Uma preventiva só pode ser criada por um técnico.

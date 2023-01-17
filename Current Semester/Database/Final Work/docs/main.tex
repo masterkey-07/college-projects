@@ -1,0 +1,626 @@
+% LaTeX Template for short student reports.
+% Citations should be in bibtex format and go in references.bib
+\documentclass[a4paper,11pt]{article}
+\usepackage[top=3cm, bottom=3cm, left = 2cm, right = 2cm]{geometry} 
+\geometry{a4paper} 
+\usepackage[utf8]{inputenc}
+\usepackage{minted}
+\usepackage{textcomp}
+\usepackage{graphicx} 
+\usepackage{amsmath,amssymb}  
+\usepackage{tabularx}
+\usepackage{bm}  
+\usepackage[pdftex,bookmarks,colorlinks,breaklinks]{hyperref}  
+%\hypersetup{linkcolor=black,citecolor=black,filecolor=black,urlcolor=black} % black links, for printed output
+\usepackage{memhfixc} 
+\usepackage{pdfsync}  
+\usepackage{fancyhdr}
+\usepackage[portuguese]{babel}
+\usepackage{ragged2e}
+\usepackage[dvipsnames]{xcolor}
+\graphicspath{ {../assets/} }
+
+\pagestyle{fancy}
+\parindent 0px
+
+\title{Trabalho Final - Parte 2}
+\author{Aluno : Victor Jorge Carvalho Chaves \\ RA : 156.740}
+\date{}
+
+\begin{document}
+
+\maketitle
+
+\section{Apresentação do Projeto}
+
+\subsection{SGBD Utilizado}
+
+O SGBD utilizado é o Maria DB.
+
+Desenvolvido por :
+\begin{itemize}
+    \item MariaDB Corporation Ab
+    \item MariaDB Foundation
+    \item Michael 'Monty' Widenius
+\end{itemize}
+
+\subsection{Descrição do Projeto}
+
+\begin{FlushLeft}
+
+    \small{
+
+        O Problema Abordado será a gestão de ordens de manutenção.
+
+        Onde terá um processo de manutenção que permita o fluxo correto de trabalho e realizar a compra de materiais para o conserto das máquinas, garantindo o bom funcionamento delas para o operador.
+
+        O Sistema tem um simples controle de usuários, guardando o nome, chapa, senha e email.
+
+        Cada usuário pode ser um operador ou técnico ou comprador, cada um tendo um código único que representa seu cargo.
+
+        Nesse sistema haverá um processo de manutenção que se baseará em notas de manutenção sobre uma máquina, que indicam algum problema ou alerta, ao qual podem virar ordens de manutenção se for crítico.
+        Uma Nota, que contem seu código, descrição e a data de criação e se foi rejeitada e seu criador, pode ser criada por um operador que detectou algo incomum ou ser criada sobre uma preventiva de manutenção.
+
+        Quando a nota se torna em uma ordem de manutenção, é definido um novo código para a ordem como a definição de qual tipo de ordem será efetuada, assim tendo um dia de encerramento quando for executada por um operador.
+
+        E assim quando a ordem de manutenção for executada, haverá um consumo de uma material sobre uma máquina.
+
+        Máquina terá seu código, descrição e se é critica. E Material terá seu código, descrição e classificação.
+
+        Para haver o consumo do material sobre uma ordem de manutenção, primeiro é necessário requisitar sua compra, para a realização da compra é criada um Pedido de Compra ao qual será realizada com um comprador.
+
+        Um Pedido de Compra tem o código da compra, data de criação do pedido, data prevista de entrega pelo fornecedor contratado e a data da entrega.
+
+        Quando um pedido de compra é entregue, é feito um relatório dele contento uma descrição sobre o estado da entrega.
+
+        O fornecedor tem o nome, código e localização. O fornecedor fornece materiais, aonde cada um deles tem um preço específico.
+
+        Por fim, máquinas podem precisar de manutenções periódicas, então é definido preventivas, que tem a datas do mês que deve ser executado, sua periodicidade, qual máquina será feita a preventiva, e quem a criou.
+
+        Uma preventiva só pode ser criada por um técnico.
+    }
+\end{FlushLeft}
+
+\pagebreak
+
+\subsection{Tabelas Criadas}
+\begin{FlushLeft}
+    \begin{verbatim}
+Usuário(pk chapa, senha, email, nome) 
+Técnico(pk id,pk fk chapa)
+Comprador(pk id,pk fk chapa)
+Operador(pk id,pk fk chapa)
+Maquina(pk id, descrição, critico)
+Material(pk id, descrição, classe)
+Fornecedor(pk id, nome)
+Preventiva(pk id, fk id_maquina, periodicidade, meses, descrição)
+Nota(pk id,fk operador_criador, fk id_maquina, descrição, rejeitado, data de criação)
+Ordem(pk id,fk pk id_nota, tipo de ordem)
+PlanejamentoPreventiva(pk fk id_preventiva,pk fk id_nota)
+Fornece(pk fk id_material, pk fk id_fornecedor, preço)
+Consumo(pk fk id_material, pk fk id_ordem, pk fk id_maquina, quantidade)
+PedidoCompra(pk id, fk id_fornecedor, 
+    fk id_comprador, data criação, data de remessa, data de entrada, frete)
+Relatório(fk pk id_pedido, descrição)
+Requisito(pk fk id_material, pk fk id_ordem, pk fk id_compra, quantidade)
+\end{verbatim}
+\end{FlushLeft}
+
+\subsection{Diagrama do Banco de Dados}
+
+\includegraphics[width=\textwidth]{diagram}
+
+
+\pagebreak
+
+\section{Implementação do Projeto}
+
+\subsection{Código de Criação do Banco de Dados}
+
+\inputminted[fontsize=\scriptsize]{sql}{'../src/creation.sql'}
+
+\pagebreak
+
+\subsection{Código de Inserção no Banco de Dados}
+
+\inputminted[fontsize=\scriptsize]{sql}{'../src/insertion.sql'}
+
+\pagebreak
+
+\subsection{Tabelas Inseridas no Banco de Dados}
+
+
+\begin{tabularx}{1\textwidth} {
+        | >{\raggedright\arraybackslash}X
+        | >{\centering\arraybackslash}X
+        | >{\centering\arraybackslash}X
+        | >{\raggedleft\arraybackslash}X |}
+    \hline
+    \multicolumn{4}{|c|}{Usuário}              \\
+    \hline
+    chapa & nome   & email            & nome   \\
+    \hline
+    1     & abc123 & pedro@gmail.com  & Pedro  \\
+    \hline
+    1     & abc123 & pedro@gmail.com  & Pedro  \\
+    \hline
+    2     & abc123 & maria@gmail.com  & Maria  \\
+    \hline
+    3     & abc123 & tom@gmail.com    & Tom    \\
+    \hline
+    4     & abc123 & erika@gmail.com  & Erika  \\
+    \hline
+    5     & abc123 & john@gmail.com   & John   \\
+    \hline
+    6     & abc123 & emilia@gmail.com & Emilia \\
+    \hline
+    7     & abc123 & robert@gmail.com & Robert \\
+    \hline
+    8     & abc123 & robert@gmail.com & José   \\
+    \hline
+    9     & abc123 & enzo@gmail.com   & Enzo   \\
+    \hline
+\end{tabularx}
+
+\vspace{1cm}
+
+\begin{tabularx}{1\textwidth} {
+        | >{\raggedright\arraybackslash}X
+        | >{\centering\arraybackslash}X
+        | >{\raggedleft\arraybackslash}X |}
+    \hline
+    \multicolumn{2}{|c|}{Técnico} \\
+    \hline
+    id & chapa                    \\
+    \hline
+    1  & 1                        \\
+    \hline
+    2  & 2                        \\
+    \hline
+    3  & 3                        \\
+    \hline
+\end{tabularx}
+
+\vspace{1cm}
+
+\begin{tabularx}{1\textwidth} {
+        | >{\raggedright\arraybackslash}X
+        | >{\centering\arraybackslash}X
+        | >{\raggedleft\arraybackslash}X |}
+    \hline
+    \multicolumn{2}{|c|}{Comprador} \\
+    \hline
+    id & chapa                      \\
+    \hline
+    1  & 4                          \\
+    \hline
+    2  & 5                          \\
+    \hline
+    3  & 6                          \\
+    \hline
+\end{tabularx}
+
+\vspace{1cm}
+
+\begin{tabularx}{1\textwidth} {
+        | >{\raggedright\arraybackslash}X
+        | >{\centering\arraybackslash}X
+        | >{\raggedleft\arraybackslash}X |}
+    \hline
+    \multicolumn{2}{|c|}{Operador} \\
+    \hline
+    id & chapa                     \\
+    \hline
+    1  & 7                         \\
+    \hline
+    2  & 8                         \\
+    \hline
+    3  & 9                         \\
+    \hline
+\end{tabularx}
+
+\vspace{1cm}
+
+
+\begin{tabularx}{1\textwidth} {
+        | >{\raggedright\arraybackslash}X
+        | >{\centering\arraybackslash}X
+        | >{\raggedleft\arraybackslash}X |}
+    \hline
+    \multicolumn{3}{|c|}{Máquina}               \\
+    \hline
+    id & descrição                    & critico \\
+    \hline
+    1  & Centro de Torneamento        & 1       \\
+    \hline
+    2  & Centro de Tratamento         & 1       \\
+    \hline
+    3  & Retificadora                 & 1       \\
+    \hline
+    4  & Máquina Jateamento           & 0       \\
+    \hline
+    5  & Tamboreamento                & 0       \\
+    \hline
+    6  & Prensa de Bancada Hidráulica & 1       \\
+    \hline
+\end{tabularx}
+
+\vspace{1cm}
+
+\begin{tabularx}{1\textwidth} {
+        | >{\raggedright\arraybackslash}X
+        | >{\centering\arraybackslash}X
+        | >{\raggedleft\arraybackslash}X |}
+    \hline
+    \multicolumn{3}{|c|}{Material}       \\
+    \hline
+    id & descrição          & classe     \\
+    \hline
+    1  & Motor              & Preventivo \\
+    \hline
+    2  & Modulo de Potencia & Preventivo \\
+    \hline
+    3  & Manta Cinza        & Consumo    \\
+    \hline
+    4  & Bomba Hidraulica   & Preventivo \\
+    \hline
+    5  & Cabo Conexão       & Corretivo  \\
+    \hline
+    6  & Filtro             & Consumo    \\
+    \hline
+    7  & Lampada            & Consumo    \\
+    \hline
+    8  & Valvula Pneumatica & Corretivo  \\
+    \hline
+\end{tabularx}
+
+\vspace{1cm}
+
+\begin{tabularx}{1\textwidth} {
+        | >{\raggedright\arraybackslash}X
+        | >{\centering\arraybackslash}X
+        | >{\raggedleft\arraybackslash}X |}
+    \hline
+    \multicolumn{2}{|c|}{Fornecedor} \\
+    \hline
+    id & nome                        \\
+    \hline
+    1  & NIKKEYPAR                   \\
+    \hline
+    2  & SIEMENS                     \\
+    \hline
+    3  & BOSCH                       \\
+    \hline
+    4  & OKUMA                       \\
+    \hline
+    5  & THEVAL                      \\
+    \hline
+    6  & NORTEL                      \\
+    \hline
+\end{tabularx}
+
+\vspace{1cm}
+
+\begin{tabularx}{1\textwidth} {
+        | >{\raggedright\arraybackslash}X
+        | >{\centering\arraybackslash}X
+        | >{\centering\arraybackslash}X
+        | >{\centering\arraybackslash}X
+        | >{\raggedleft\arraybackslash}X |}
+    \hline
+    \multicolumn{5}{|c|}{Preventiva}                                   \\
+    \hline
+    id & id\_maquina & periodicidade & meses   & descrição             \\
+    \hline
+    12 & 1           & SM            & Jan,Jun & Prevenção de Incêndio \\
+    \hline
+    13 & 2           & SM            & Jan,Jun & Prevenção de Incêndio \\
+    \hline
+    14 & 3           & SM            & Jan,Jun & Prevenção de Incêndio \\
+    \hline
+    15 & 2           & SM            & Jan,Jun & Prevenção de Incêndio \\
+    \hline
+    16 & 4           & SM            & Jan,Jun & Prevenção de Incêndio \\
+    \hline
+    17 & 5           & SM            & Jan,Jun & Prevenção de Incêndio \\
+    \hline
+    18 & 3           & AN            & Fev     & Troca de Motor        \\
+    \hline
+    19 & 5           & AN            & Fev     & Troca de Motor        \\
+    \hline
+    20 & 1           & AN            & Fev     & Troca de Motor        \\
+    \hline
+    21 & 4           & AN            & Fev     & Troca do Revestimento \\
+    \hline
+    22 & 6           & AN            & Fev     & Troca do Revestimento \\
+    \hline
+\end{tabularx}
+
+\vspace{1cm}
+
+\begin{tabularx}{1\textwidth} {
+        | >{\raggedright\arraybackslash}X
+        | >{\centering\arraybackslash}X
+        | >{\centering\arraybackslash}X
+        | >{\centering\arraybackslash}X
+        | >{\centering\arraybackslash}X
+        | >{\raggedleft\arraybackslash}X |}
+    \hline
+    \multicolumn{6}{|c|}{Nota}                                                    \\
+    \hline
+    id & id\_comprador & id\_maquina & descrição         & rejeitado & criação    \\
+    \hline
+    1  & 1             & 3           & Sons Altos        & 1         & 2023-01-11 \\
+    \hline
+    2  & 1             & 2           & Alta Temperatura  & 0         & 2023-01-12 \\
+    \hline
+    3  & 3             & 5           & Peça Caiu         & 1         & 2023-01-13 \\
+    \hline
+    4  & 2             & 5           & Alarme            & 0         & 2023-01-08 \\
+    \hline
+    5  & 2             & 4           & Baixa Temperatura & 0         & 2023-01-09 \\
+    \hline
+    6  & 2             & 2           & Alarme            & 1         & 2023-01-10 \\
+    \hline
+    7  & 1             & 3           & Alta Vibração     & 0         & 2023-01-10 \\
+    \hline
+    8  & 3             & 5           & Sons Altos        & 1         & 2023-01-11 \\
+    \hline
+    9  & 2             & 4           & Falta de Energia  & 0         & 2023-01-01 \\
+    \hline
+    10 & 1             & 6           & Painel Desligou   & 0         & 2023-01-05 \\
+    \hline
+\end{tabularx}
+
+\vspace{1cm}
+
+\begin{tabularx}{1\textwidth} {
+        | >{\raggedright\arraybackslash}X
+        | >{\centering\arraybackslash}X
+        | >{\raggedleft\arraybackslash}X |}
+    \hline
+    \multicolumn{3}{|c|}{Ordem} \\
+    \hline
+    id & id\_nota & tipo        \\
+    \hline
+    1  & 1        & ZMI         \\
+    \hline
+    2  & 2        & ZMG         \\
+    \hline
+    3  & 4        & ZMG         \\
+    \hline
+    4  & 9        & ZMI         \\
+    \hline
+    5  & 10       & ZMI         \\
+    \hline
+\end{tabularx}
+
+\vspace{1cm}
+
+\begin{tabularx}{1\textwidth} {
+        | >{\raggedright\arraybackslash}X
+        | >{\centering\arraybackslash}X
+        | >{\raggedleft\arraybackslash}X |}
+    \hline
+    \multicolumn{2}{|c|}{PlanejamentoPreventiva} \\
+    \hline
+    id\_preventiva & id\_nota                    \\
+    \hline
+    2              & 2                           \\
+    \hline
+    8              & 4                           \\
+    \hline
+\end{tabularx}
+
+\vspace{1cm}
+
+\begin{tabularx}{1\textwidth} {
+        | >{\raggedright\arraybackslash}X
+        | >{\centering\arraybackslash}X
+        | >{\raggedleft\arraybackslash}X |}
+    \hline
+    \multicolumn{3}{|c|}{FornecimentoMaterial} \\
+    \hline
+    id\_material & id\_fornecedor & preço      \\
+    \hline
+    2            & 1              & 32.0       \\
+    \hline
+    2            & 2              & 65.0       \\
+    \hline
+    3            & 2              & 43.0       \\
+    \hline
+    3            & 3              & 123.0      \\
+    \hline
+    4            & 3              & 87.0       \\
+    \hline
+    4            & 4              & 435.0      \\
+    \hline
+    5            & 4              & 49.0       \\
+    \hline
+    5            & 5              & 39.0       \\
+    \hline
+    6            & 5              & 21.0       \\
+    \hline
+    6            & 6              & 10.0       \\
+    \hline
+    7            & 6              & 100.0      \\
+    \hline
+    8            & 1              & 123.0      \\
+    \hline
+\end{tabularx}
+
+\vspace{1cm}
+
+\begin{tabularx}{1\textwidth} {
+        | >{\raggedright\arraybackslash}X
+        | >{\centering\arraybackslash}X
+        | >{\centering\arraybackslash}X
+        | >{\raggedleft\arraybackslash}X |}
+    \hline
+    \multicolumn{4}{|c|}{ConsumoMaterial}               \\
+    \hline
+    id\_material & id\_ordem & id\_maquina & quantidade \\
+    \hline
+    1            & 1         & 5           & 10         \\
+    \hline
+    2            & 3         & 4           & 1          \\
+    \hline
+    3            & 4         & 6           & 8          \\
+    \hline
+    4            & 1         & 1           & 1          \\
+    \hline
+    4            & 2         & 5           & 3          \\
+    \hline
+    5            & 4         & 1           & 1          \\
+    \hline
+    7            & 3         & 4           & 5          \\
+    \hline
+    8            & 2         & 6           & 2          \\
+    \hline
+\end{tabularx}
+
+\vspace{1cm}
+
+\begin{tabularx}{1\textwidth} {
+        | >{\raggedright\arraybackslash}X
+        | >{\centering\arraybackslash}X
+        | >{\centering\arraybackslash}X
+        | >{\centering\arraybackslash}X
+        | >{\centering\arraybackslash}X
+        | >{\centering\arraybackslash}X
+        | >{\raggedleft\arraybackslash}X |}
+    \hline
+    \multicolumn{7}{|c|}{PedidoCompra}                                                 \\
+    \hline
+    id & id\_fornecedor & id\_comprador & criação    & remessa    & entreda    & frete \\
+    \hline
+    1  & 1              & 1             & 2023-01-01 & 2023-01-10 & 2023-01-12 & 10.0  \\
+    \hline
+    2  & 2              & 1             & 2023-01-02 & 2023-02-01 & 2023-01-08 & 20.0  \\
+    \hline
+    3  & 3              & 2             & 2023-01-03 & 2023-03-01 &            & 30.0  \\
+    \hline
+    4  & 4              & 2             & 2023-01-04 & 2023-04-01 &            & 10.0  \\
+    \hline
+    5  & 5              & 3             & 2023-01-05 & 2023-05-01 &            & 33.0  \\
+    \hline
+    6  & 6              & 3             & 2023-01-06 & 2023-06-01 &            & 25.0  \\
+    \hline
+\end{tabularx}
+
+\vspace{1cm}
+
+
+\begin{tabularx}{1\textwidth} {
+        | >{\raggedright\arraybackslash}X
+        | >{\centering\arraybackslash}X
+        | >{\raggedleft\arraybackslash}X |}
+    \hline
+    \multicolumn{2}{|c|}{Relatório} \\
+    \hline
+    id\_pedido & id\_descrição      \\
+    \hline
+    1          & Material Correto   \\
+    \hline
+    2          & Material Incorreto \\
+    \hline
+\end{tabularx}
+
+\vspace{1cm}
+
+\begin{tabularx}{1\textwidth} {
+        | >{\raggedright\arraybackslash}X
+        | >{\centering\arraybackslash}X
+        | >{\centering\arraybackslash}X
+        | >{\raggedleft\arraybackslash}X |}
+    \hline
+    \multicolumn{4}{|c|}{Requisição}                   \\
+    \hline
+    id\_material & id\_ordem & id\_compra & quantidade \\
+    \hline
+    2            & 1         & 1          & 3          \\
+    \hline
+    2            & 2         & 2          & 6          \\
+    \hline
+    3            & 3         & 2          & 12         \\
+    \hline
+    4            & 3         & 3          & 8          \\
+    \hline
+    4            & 4         & 3          & 4          \\
+    \hline
+    5            & 4         & 4          & 4          \\
+    \hline
+    5            & 5         & 4          & 3          \\
+    \hline
+    6            & 5         & 5          & 2          \\
+    \hline
+    6            & 5         & 6          & 2          \\
+    \hline
+    7            & 1         & 6          & 1          \\
+    \hline
+    8            & 1         & 1          & 12         \\
+    \hline
+\end{tabularx}
+
+\pagebreak
+
+
+\section{Consultas Desenvolvidas}
+
+\subsection{Notas das Preventivas Planejadas de Máquinas Críticas}
+
+\begin{minted}{sql}
+    SELECT * FROM Nota n 
+    INNER JOIN PlanejamentoPreventiva pp ON pp.id_nota = n.id 
+    INNER JOIN Preventiva p ON p.id = pp.id_preventiva
+    INNER JOIN Maquina m ON m.id = p.id_maquina
+    WHERE m.critico = 1;
+\end{minted}
+\begin{tabularx}{1\textwidth} {
+        | >{\raggedright\arraybackslash}X
+        | >{\centering\arraybackslash}X
+        | >{\raggedleft\arraybackslash}X |}
+    \hline
+    \multicolumn{2}{|c|}{Resultado} \\
+    \hline
+    id & descrição                  \\
+    \hline
+    2  & Alta Temperatura           \\
+    \hline
+\end{tabularx}
+
+\vspace{1cm}
+
+
+\subsection{Consumo Total de Cada Material em Máquinas Críticas}
+
+\begin{minted}{sql}
+    SELECT m2.descrição , SUM(cm.quantidade) as total FROM ConsumoMaterial cm 
+    INNER JOIN Maquina m ON m.id = cm.id_maquina
+    INNER JOIN Material m2  ON m2.id = cm.id_material 
+    WHERE m.critico = 1
+    GROUP BY cm.id_material;
+\end{minted}
+\begin{tabularx}{1\textwidth} {
+        | >{\raggedright\arraybackslash}X
+        | >{\centering\arraybackslash}X
+        | >{\raggedleft\arraybackslash}X |}
+    \hline
+    \multicolumn{2}{|c|}{Resultado} \\
+    \hline
+    descrição          & total      \\
+    \hline
+    Manta Cinza        & 8          \\
+    \hline
+    Bomba Hidraulica   & 1          \\
+    \hline
+    Cabo Conexão       & 1          \\
+    \hline
+    Valvula Pneumatica & 2          \\
+    \hline
+\end{tabularx}
+
+\vspace{1cm}
+
+
+\end{document}
