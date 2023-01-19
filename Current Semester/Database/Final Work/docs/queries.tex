@@ -1,10 +1,10 @@
-\subsection{Notas das Preventivas Planejadas de Máquinas Críticas}
+\subsection{Notas Das Preventivas Planejadas De Máquinas Críticas}
 
 \begin{minted}{sql}
     SELECT * FROM Nota n 
-    INNER JOIN PlanejamentoPreventiva pp ON pp.id_nota = n.id 
-    INNER JOIN Preventiva p ON p.id = pp.id_preventiva
-    INNER JOIN Maquina m ON m.id = p.id_maquina
+        INNER JOIN PlanejamentoPreventiva pp ON pp.id_nota = n.id 
+        INNER JOIN Preventiva p ON p.id = pp.id_preventiva
+        INNER JOIN Maquina m ON m.id = p.id_maquina
     WHERE m.critico = 1;
 \end{minted}
 \begin{tabularx}{1\textwidth} {
@@ -12,22 +12,22 @@
         | >{\centering\arraybackslash}X
         | >{\raggedleft\arraybackslash}X |}
     \hline
-    \multicolumn{2}{|c|}{Resultado} \\
+    \multicolumn{2}{|c|}{Resultado}  \\
     \hline
-    id & descrição                  \\
+    \textbf{id} & \textbf{descrição} \\
     \hline
-    2  & Alta Temperatura           \\
+    2           & Alta Temperatura   \\
     \hline
 \end{tabularx}
 
 \vspace{1cm}
 
-\subsection{Consumo Total de Cada Material em Máquinas Críticas}
+\subsection{Consumo Total De Cada Material Em Máquinas Críticas}
 
 \begin{minted}{sql}
     SELECT m2.descrição , SUM(cm.quantidade) as total FROM ConsumoMaterial cm 
-    INNER JOIN Maquina m ON m.id = cm.id_maquina
-    INNER JOIN Material m2  ON m2.id = cm.id_material 
+        INNER JOIN Maquina m ON m.id = cm.id_maquina
+        INNER JOIN Material m2  ON m2.id = cm.id_material 
     WHERE m.critico = 1
     GROUP BY cm.id_material;
 \end{minted}
@@ -36,19 +36,243 @@
         | >{\centering\arraybackslash}X
         | >{\raggedleft\arraybackslash}X |}
     \hline
-    \multicolumn{2}{|c|}{Resultado} \\
+    \multicolumn{2}{|c|}{Resultado}     \\
     \hline
-    descrição          & total      \\
+    \textbf{descrição} & \textbf{total} \\
     \hline
-    Manta Cinza        & 8          \\
+    Manta Cinza        & 8              \\
     \hline
-    Bomba Hidraulica   & 1          \\
+    Bomba Hidraulica   & 1              \\
     \hline
-    Cabo Conexão       & 1          \\
+    Cabo Conexão       & 1              \\
     \hline
-    Valvula Pneumatica & 2          \\
+    Valvula Pneumatica & 2              \\
     \hline
 \end{tabularx}
 
 \vspace{1cm}
+
+\subsection{Pegar Os Nomes Dos Compradores Livres (Acompanhando Nenhuma Compra)}
+
+\begin{minted}{sql}
+    SELECT u.nome  FROM Comprador c 
+        LEFT JOIN PedidoCompra pc ON pc.id_comprador = c.id
+        INNER JOIN Usuário u ON u.chapa = c.chapa 
+    WHERE pc.id IS NULL;
+\end{minted}
+\begin{tabularx}{1\textwidth} {
+        | >{\raggedright\arraybackslash}X
+        | >{\centering\arraybackslash}X
+        | >{\raggedleft\arraybackslash}X |}
+    \hline
+    \multicolumn{1}{|c|}{Resultado} \\
+    \hline
+    \textbf{nome}                   \\
+    \hline
+    Enzo                            \\
+    \hline
+\end{tabularx}
+
+\pagebreak
+
+\subsection{Listar As Máquinas Críticas E A Quantidade De Ordens E Notas}
+
+\begin{minted}{sql}
+	SELECT m.id, m.descrição, m.critico, 
+            COUNT(n.id) - COUNT(o.id) as notas, COUNT(o.id) as ordens 
+        FROM Maquina m 
+	    LEFT JOIN Nota n ON n.id_maquina = m.id
+	    LEFT JOIN Ordem o ON o.id_nota = n.id
+	GROUP BY m.id
+	ORDER BY (COUNT(n.id)) DESC, m.descrição ASC;
+\end{minted}
+\begin{tabularx}{1\textwidth} {
+        | >{\raggedright\arraybackslash}X
+        | >{\centering\arraybackslash}X
+        | >{\centering\arraybackslash}X
+        | >{\centering\arraybackslash}X
+        | >{\centering\arraybackslash}X
+        | >{\raggedleft\arraybackslash}X |}
+    \hline
+    \multicolumn{5}{|c|}{Resultado}                                                                  \\
+    \hline
+    \textbf{id} & \textbf{descrição}           & \textbf{critico} & \textbf{notas} & \textbf{ordens} \\
+    \hline
+    5           & Tamboreamento                & 0                & 2              & 1               \\
+    \hline
+    2           & Centro de Tratamento         & 1                & 1              & 1               \\
+    \hline
+    4           & Máquina Jateamento           & 0                & 1              & 1               \\
+    \hline
+    3           & Retificadora                 & 1                & 1              & 1               \\
+    \hline
+    6           & Prensa de Bancada Hidráulica & 1                & 0              & 1               \\
+    \hline
+    1           & Centro de Torneamento        & 1                & 0              & 0               \\
+
+    \hline
+\end{tabularx}
+
+\vspace{1cm}
+
+\subsection{Listar Os Materiais Com Seu Fornecedor Que Vende A Menor Preço}
+
+\begin{minted}{sql}
+    SELECT m.descrição, fm.preço, f.nome FROM Material m 
+        INNER JOIN FornecimentoMaterial fm
+        ON fm.id_material = m.id AND fm.preço = (SELECT MIN(fm2.preço) 
+                                                 FROM FornecimentoMaterial fm2 
+                                                 WHERE fm2.id_material = m.id)
+        INNER JOIN Fornecedor f ON f.id = fm.id_fornecedor 											 
+\end{minted}
+\begin{tabularx}{1\textwidth} {
+        | >{\raggedright\arraybackslash}X
+        | >{\centering\arraybackslash}X
+        | >{\centering\arraybackslash}X
+        | >{\centering\arraybackslash}X
+        | >{\raggedleft\arraybackslash}X |}
+    \hline
+    \multicolumn{3}{|c|}{Resultado}                           \\
+    \hline
+    \textbf{descrição} & \textbf{fornecedor} & \textbf{preço} \\
+    \hline
+    Modulo de Potencia & 32.0                & NIKKEYPAR      \\
+    \hline
+    Manta Cinza        & 43.0                & SIEMENS        \\
+    \hline
+    Bomba Hidraulica   & 87.0                & BOSCH          \\
+    \hline
+    Cabo Conexão       & 39.0                & THEVAL         \\
+    \hline
+    Filtro             & 10.0                & NORTEL         \\
+    \hline
+    Lampada            & 100.0               & NORTEL         \\
+    \hline
+    Valvula Pneumatica & 123.0               & NIKKEYPAR      \\
+    \hline
+\end{tabularx}
+
+\pagebreak
+
+\subsection{Listar Todos Os Materiais Requisitados Para Preventivas Planejadas
+    \\ Contendo Os Dados Da Compra, Preço, Preventiva, Máquina, Material}
+
+\begin{minted}{sql}
+    SELECT u.nome as comprador,
+        m2.descrição as maquina,
+        p.descrição as preventiva,
+        CONCAT(p.periodicidade, ' : ', p.meses) as periodos,
+        m.descrição as material,
+        f.nome as fornecedor,
+        ((fm.preço * r.quantidade) + pc.frete) as preço
+    FROM Requisição r
+        INNER JOIN Material m ON m.id = r.id_material
+        INNER JOIN PedidoCompra pc ON pc.id = r.id_compra
+        INNER JOIN Fornecedor f ON f.id = pc.id_fornecedor
+        INNER JOIN FornecimentoMaterial fm ON fm.id_material = r.id_material
+        AND fm.id_fornecedor = f.id
+        INNER JOIN Ordem o ON o.id = r.id_ordem
+        INNER JOIN Nota n ON o.id_nota = n.id
+        INNER JOIN PlanejamentoPreventiva pp ON pp.id_nota = n.id
+        INNER JOIN Preventiva p ON p.id = pp.id_preventiva
+        INNER JOIN Maquina m2 ON m2.id = n.id_maquina
+        INNER JOIN Comprador c ON pc.id_comprador = c.id
+        INNER JOIN Usuário u ON u.chapa = c.chapa;
+\end{minted}
+\begin{tabularx}{1\textwidth} {
+        | >{\raggedright\arraybackslash}X
+        | >{\centering\arraybackslash}X
+        | >{\centering\arraybackslash}X
+        | >{\centering\arraybackslash}X
+        | >{\centering\arraybackslash}X
+        | >{\centering\arraybackslash}X
+        | >{\raggedleft\arraybackslash}X |}
+    \hline
+    \multicolumn{7}{|c|}{Resultado}                                                                                                                   \\
+    \hline
+    \textbf{comprador} & \textbf{maquina}     & \textbf{preventiva}   & \textbf{periodos} & \textbf{material}  & \textbf{fornecedor} & \textbf{preço} \\
+    \hline
+    Erika              & Centro de Tratamento & Prevenção de Incêndio & SM : Jan,Jun      & Modulo de Potencia & SIEMENS             & 410.0          \\
+    \hline
+    Erika              & Tambore- amento      & Troca de Motor        & AN : Fev          & Manta Cinza        & SIEMENS             & 536.0          \\
+    \hline
+    John               & Tambore- amento      & Troca de Motor        & AN : Fev          & Bomba Hidraulica   & BOSCH               & 726.0          \\
+    \hline
+\end{tabularx}
+
+
+\pagebreak
+
+
+\subsection{Listar Todos Os Relacionamento Entre Máquina e Material}
+
+\begin{minted}{sql}
+    SELECT m3.descrição as maquina,
+        m4.descrição as material,
+        m4.classe
+    FROM (
+            (
+                SELECT cm.id_material, cm.id_maquina
+                FROM ConsumoMaterial cm
+            )
+            UNION
+            (
+                SELECT r.id_material, m2.id as id_maquina
+                FROM Requisição r
+                    INNER JOIN Ordem o ON o.id = r.id_ordem
+                    INNER JOIN Nota n ON n.id = o.id_nota
+                    INNER JOIN Maquina m2 ON m2.id = n.id_maquina
+            )
+        ) DataTable
+        INNER JOIN Maquina m3 ON m3.id = DataTable.id_maquina
+        INNER JOIN Material m4 ON m4.id = DataTable.id_material
+    ORDER BY m3.descrição ASC,
+        m4.descrição ASC;
+\end{minted}
+\begin{tabularx}{1\textwidth} {
+        | >{\raggedright\arraybackslash}X
+        | >{\centering\arraybackslash}X
+        | >{\centering\arraybackslash}X
+        | >{\centering\arraybackslash}X
+        | >{\raggedleft\arraybackslash}X |}
+    \hline
+    \multicolumn{3}{|c|}{Resultado}                                   \\
+    \hline
+    \textbf{maquina}             & \textbf{material}  & \textbf{tipo} \\
+    \hline
+    Centro de Torneamento        & Bomba Hidraulica   & Preventivo    \\
+    \hline
+    Centro de Torneamento        & Cabo Conexão       & Corretivo     \\
+    \hline
+    Centro de Tratamento         & Modulo de Potencia & Preventivo    \\
+    \hline
+    Máquina Jateamento           & Bomba Hidraulica   & Preventivo    \\
+    \hline
+    Máquina Jateamento           & Cabo Conexão       & Corretivo     \\
+    \hline
+    Máquina Jateamento           & Lampada            & Consumo       \\
+    \hline
+    Máquina Jateamento           & Modulo de Potencia & Preventivo    \\
+    \hline
+    Prensa de Bancada Hidráulica & Cabo Conexão       & Corretivo     \\
+    \hline
+    Prensa de Bancada Hidráulica & Filtro             & Consumo       \\
+    \hline
+    Prensa de Bancada Hidráulica & Manta Cinza        & Consumo       \\
+    \hline
+    Prensa de Bancada Hidráulica & Valvula Pneumatica & Corretivo     \\
+    \hline
+    Retificadora                 & Lampada            & Consumo       \\
+    \hline
+    Retificadora                 & Modulo de Potencia & Preventivo    \\
+    \hline
+    Retificadora                 & Valvula Pneumatica & Corretivo     \\
+    \hline
+    Tamboreamento                & Bomba Hidraulica   & Preventivo    \\
+    \hline
+    Tamboreamento                & Manta Cinza        & Consumo       \\
+    \hline
+    Tamboreamento                & Motor              & Preventivo    \\
+    \hline
+\end{tabularx}
 

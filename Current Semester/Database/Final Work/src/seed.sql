@@ -15,7 +15,8 @@ VALUES (1),
 INSERT INTO Comprador (chapa)
 VALUES (4),
     (5),
-    (6);
+    (6),
+    (9);
 INSERT INTO Operador (chapa)
 VALUES (7),
     (8),
@@ -43,24 +44,24 @@ VALUES ('NIKKEYPAR'),
     ('OKUMA'),
     ('THEVAL'),
     ('NORTEL');
-    
 INSERT INTO Preventiva (
         id_maquina,
+        id_tecnico,
         periodicidade,
         meses,
         descrição
     )
-VALUES (1, 'SM', 'Jan,Jun', 'Prevenção de Incêndio'),
-    (2, 'SM', 'Jan,Jun', 'Prevenção de Incêndio'),
-    (3, 'SM', 'Jan,Jun', 'Prevenção de Incêndio'),
-    (2, 'SM', 'Jan,Jun', 'Prevenção de Incêndio'),
-    (4, 'SM', 'Jan,Jun', 'Prevenção de Incêndio'),
-    (5, 'SM', 'Jan,Jun', 'Prevenção de Incêndio'),
-    (3, 'AN', 'Fev', 'Troca de Motor'),
-    (5, 'AN', 'Fev', 'Troca de Motor'),
-    (1, 'AN', 'Fev', 'Troca de Motor'),
-    (4, 'AN', 'Fev', 'Troca do Revestimento'),
-    (6, 'AN', 'Fev', 'Troca do Revestimento');
+VALUES (1, 3, 'SM', 'Jan,Jun', 'Prevenção de Incêndio'),
+    (2, 3, 'SM', 'Jan,Jun', 'Prevenção de Incêndio'),
+    (3, 3, 'SM', 'Jan,Jun', 'Prevenção de Incêndio'),
+    (2, 3, 'SM', 'Jan,Jun', 'Prevenção de Incêndio'),
+    (4, 3, 'SM', 'Jan,Jun', 'Prevenção de Incêndio'),
+    (5, 3, 'SM', 'Jan,Jun', 'Prevenção de Incêndio'),
+    (3, 3, 'AN', 'Fev', 'Troca de Motor'),
+    (5, 3, 'AN', 'Fev', 'Troca de Motor'),
+    (1, 3, 'AN', 'Fev', 'Troca de Motor'),
+    (4, 3, 'AN', 'Fev', 'Troca do Revestimento'),
+    (6, 2, 'AN', 'Fev', 'Troca do Revestimento');
 # Exemplo de Inserção na Tabela Nota
 INSERT INTO Nota (
         operador_criador,
@@ -79,12 +80,12 @@ VALUES (1, 3, 'Sons Altos', TRUE, '2023-01-011'),
     (3, 5, 'Sons Altos', TRUE, '2023-01-11'),
     (2, 4, 'Falta de Energia', FALSE, '2023-01-01'),
     (1, 6, 'Painel Desligou', FALSE, '2023-01-05');
-INSERT INTO Ordem (id_nota, Tipo)
-VALUES (1, 'ZMI'),
-    (2, 'ZMG'),
-    (4, 'ZMG'),
-    (9, 'ZMI'),
-    (10, 'ZMI');
+INSERT INTO Ordem (id_nota, id_tecnico, encerramento, tipo)
+VALUES (1, 1, '2023-01-15', 'ZMI'),
+    (2, 2, NULL, 'ZMG'),
+    (4, NULL, NULL, 'ZMG'),
+    (9, NULL, NULL, 'ZMI'),
+    (10, NULL, NULL, 'ZMI');
 INSERT INTO PlanejamentoPreventiva (id_preventiva, id_nota)
 VALUES (8, 4),
     (2, 2);

@@ -22,11 +22,12 @@ VALUES ('NIKKEYPAR');
 # Exemplo de Inserção na Tabela Preventiva
 INSERT INTO Preventiva (
         id_maquina,
+        id_tecnico,
         periodicidade,
         meses,
         descrição
     )
-VALUES (1, 'SM', 'Jan,Jun', 'Prevenção de Incêndio');
+VALUES (1, 1, 'SM', 'Jan,Jun', 'Prevenção de Incêndio');
 # Exemplo de Inserção na Tabela Nota
 INSERT INTO Nota (
         operador_criador,
@@ -37,8 +38,8 @@ INSERT INTO Nota (
     )
 VALUES (1, 1, 'Sons Altos', FALSE, '2020-01-01');
 # Exemplo de Inserção na Tabela Ordem
-INSERT INTO Ordem (id_nota, Tipo)
-VALUES (1, 'ZMI');
+INSERT INTO Ordem (id_nota, id_tecnico, encerramento, tipo)
+VALUES (1, 1, '2020-01-01', 'ZMI');
 # Exemplo de Inserção na Tabela PlanejamentoPreventiva
 INSERT INTO PlanejamentoPreventiva (id_preventiva, id_nota)
 VALUES (1, 1);

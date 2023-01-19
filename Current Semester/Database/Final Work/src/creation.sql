@@ -45,11 +45,13 @@ CREATE TABLE Fornecedor(
 CREATE TABLE Preventiva(
     id INTEGER AUTO_INCREMENT,
     id_maquina INTEGER,
+    id_tecnico INTEGER,
     periodicidade VARCHAR(2),
     meses VARCHAR(12),
     descrição VARCHAR(200),
     PRIMARY KEY (id),
-    FOREIGN KEY (id_maquina) REFERENCES Maquina(id)
+    FOREIGN KEY (id_maquina) REFERENCES Maquina(id),
+    FOREIGN KEY (id_tecnico) REFERENCES Técnico(id)
 );
 CREATE TABLE Nota(
     id INTEGER AUTO_INCREMENT,
@@ -65,8 +67,11 @@ CREATE TABLE Nota(
 CREATE TABLE Ordem(
     id INTEGER AUTO_INCREMENT,
     id_nota INTEGER UNIQUE,
-    Tipo VARCHAR(3),
-    PRIMARY KEY(id)
+    tipo VARCHAR(3),
+    id_tecnico INTEGER,
+    encerramento DATE,
+    PRIMARY KEY(id),
+    FOREIGN KEY (id_tecnico) REFERENCES Técnico (id)
 );
 CREATE TABLE PlanejamentoPreventiva(
     id_preventiva INTEGER,
