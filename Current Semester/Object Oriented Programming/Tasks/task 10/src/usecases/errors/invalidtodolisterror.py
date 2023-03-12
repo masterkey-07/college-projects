@@ -1,2 +1,0 @@
-class InvalidTodoListError(Exception):
-    pass

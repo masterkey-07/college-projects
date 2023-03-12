@@ -1,2 +1,0 @@
-class InvalidUserError(Exception):
-    pass
