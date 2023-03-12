@@ -1,0 +1,35 @@
+Site (id,nome, url)
+
+Pagina (id_site, id_pagina, nome)
+
+Relação : Site tem muitas Paginas
+
+Custom (id, conteudo, linguagem)
+
+Relação : Pagina pode ser Custom
+
+Template (id, banco de dados)
+
+Relação : Pagina pode ser Template
+
+Banco (ip, nome, username, password)
+
+Relação : Pagina Template tem Banco
+
+Exibidora (id, sql)
+
+Relação : Pagina Template pode ser Exibidora
+
+Formulario (id, tabela, tipo_modificacao)
+
+Relação : Pagina Template pode ser Formulario
+
+Usuario (id, nome, senha)
+
+AcessoSite (id_usuario, id_site, acesso)
+
+Relação : Usuario tem acesso a Sites
+
+AcessoPagina (id_usuario, id_site, acesso)
+
+Relação : Usuario tem acesso a Paginas

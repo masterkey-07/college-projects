@@ -1,0 +1,28 @@
+Usando produto cartesiano:
+1. Obter as especialidades do Dr Paulo
+2. Obter as datas das consultas do dr Arthur
+3. Selecione o nome do médico, o nome e endereço da clínica para todas as
+consultas que
+4. Possuem especialidade ‘CLINICO GERAL’.
+5. Mostre o nome e o endereço das clínicas que possuem consulta marcada para
+30/03/2010;
+6. Recuperar nome dos médicos que atendem na Clínica Bem Estar;
+7. Exiba o nome e endereço das clínicas onde o médico André trabalha;
+
+8. Insira 2 clinicas
+9. Insira 2 médicos
+
+Usando JOIN:
+10. Liste o Nome das Clinicas e suas especialidades
+11. Liste o Nome de todas as clinicas e suas Especialidade.Clinicas que não
+possuem especialidade devem aparecer. Ordenar o resultado pelo nome da Clinica e
+Especialidade.
+12. Liste o nome de todos os médicos cadastrados e para aqueles que tem
+consulta, listar a data e hora da consulta.
+13. Liste para cada médico, o seu nome e a quantidade de consultas que ele
+possui.
+14. Liste para cada médico, o seu nome e a quantidade de consultas que ele
+possui. Médicos que não possuem consulta também devem aparecer no resultado.
+
+15. Liste o nome dos médicos e nome da clinicas. Os nomes das clinicas que não
+possuem medico, devem aparecer. Ordenado pelo nome da clinica, nome do médico

@@ -1,0 +1,61 @@
+\documentclass[a4paper,11pt]{article}
+\usepackage[top=3cm, bottom=3cm, left = 2cm, right = 2cm]{geometry} 
+\geometry{a4paper} 
+\usepackage[utf8]{inputenc}
+\usepackage{minted}
+\usepackage{import}
+\usepackage{textcomp}
+\usepackage{graphicx} 
+\usepackage{amsmath,amssymb}  
+\usepackage{tabularx}
+\usepackage{bm}  
+\usepackage[pdftex,bookmarks,colorlinks,breaklinks]{hyperref}  
+\usepackage{memhfixc} 
+\usepackage{pdfsync}  
+\usepackage{fancyhdr}
+\usepackage[portuguese]{babel}
+\usepackage{ragged2e}
+\usepackage[dvipsnames]{xcolor}
+\graphicspath{ {../assets/} }
+
+\pagestyle{fancy}
+
+\fancyhead[L]{}
+
+\parindent 0px
+
+\title{Trabalho Final - Parte 2}
+\author{Aluno : Victor Jorge Carvalho Chaves \\ RA : 156.740}
+\date{}
+
+\begin{document}
+
+\maketitle
+
+\section{Apresentação do Projeto}
+
+\import{.}{apresentation.tex}
+
+\section{Implementação do Projeto}
+
+\subsection{Código de Criação do Banco de Dados}
+
+\inputminted[fontsize=\scriptsize]{sql}{'../src/creation.sql'}
+
+\pagebreak
+
+\subsection{Código de Inserção no Banco de Dados}
+
+\inputminted[fontsize=\scriptsize]{sql}{'../src/insertion.sql'}
+
+\subsection{Tabelas Inseridas no Banco de Dados}
+
+\import{.}{tables.tex}
+
+\pagebreak
+
+\section{Consultas Desenvolvidas}
+
+\import{.}{queries.tex}
+
+\end{document}
