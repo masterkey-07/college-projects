@@ -1,0 +1,5 @@
+Emprese de Software Sucedida -> Entrega de Qualidade (Performance, Previsão, etc...)
+
+Produto de T.I -> Deve Satisfazer o Cliente
+
+Software Deve : Satisfazer o Cliente, Longo Tempo de Vida, Rápido de Desenvolvimento

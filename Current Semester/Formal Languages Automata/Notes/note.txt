@@ -1,0 +1,40 @@
+Linguagem -> String -> Símbolos
+
+Linguagem : Finito de Strings
+
+Linguagem = {conjunto de strings binários pares}
+
+Simbolo = Divisão Gráfica Indivisível  
+
+Definição de um Conjunto -> Z = {a,b,c...}
+
+A -> conjunto
+
+|A| == length(A)
+
+Exemplo de Conjunto -> L = {w | w é um string binário par}
+
+binário par -> termina com zero (exemplo:1010)
+
+Prova direta
+    hipotese : p e q são reais e positivos
+
+    sqrt(pq) <= (p + q) / 2
+
+    prova : (p - q)² >= 0 => p² - 2pq + q² >= 0 => p² + 2pq + q² >= 4pq => (p+q)²  >= 4pq => p + q >= 2 sqrt(pq) => sqrt(pq) <= (p + q) / 2
+
+Prova por contradição
+
+sqrt(pq) > (p + q)/2
+
+pq > (p+q)²/4 => 4pq > (p+q)² => 4pq > p² + 2pq + q² => 0 > p² - 2pq + q² => 0 > (p-q)² FALSO
+
+Prova por indução
+
+    Somatória de i de i = 0 até n é igual a n(n+1)/2
+
+    base : i até zero = 0 * ( 0 + 1)/2 = 0
+
+    hipotese : somatoria de i de i = 0 até n - 1 = (n - 1) * (n - 1 + 1)/2 => (n-1)*(n)/2
+
+    indução : Somatória i até n = somatoria i até n - 1 + n => ((n-1)*(n)/2) + n = (n² + n)/2 => n * (n + 1)/2

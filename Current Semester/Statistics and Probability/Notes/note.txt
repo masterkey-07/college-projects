@@ -1,0 +1,16 @@
+Inferência : Coleta -> Redução -> Análise -> Modelagem dos Dados -> Previsões -> Tomada Decisões
+
+Por que usar Estatística : Variabilidade -> Variações de Cada Indivíduo e de Um Indivíduo. 
+    Exemplo : Alunos com Mesma Idade, Plantação em um Mesmo Solo
+
+
+Técnicas :
+    Descritiva : Estatística Descritiva -> Síntese do Fenômeno em Estudo -> Não Pode Chegar em Conclusões
+        - Analise Exploratória dos Dados
+        - Organização
+        - Tabulação
+        - Construção Gráficos
+    Indutiva : Inferência Estatística -> Métodos de Tomada de Decisão e Grau de Confiabilidade -> Pode Chegar em Conclusões
+        - Aplicação de Métodos Estatísticos 
+        - Teste de Hipóteses
+        - Construir Intervalos de Confiança
