@@ -3,3 +3,10 @@ Emprese de Software Sucedida -> Entrega de Qualidade (Performance, Previsão, et
 Produto de T.I -> Deve Satisfazer o Cliente
 
 Software Deve : Satisfazer o Cliente, Longo Tempo de Vida, Rápido de Desenvolvimento
+
+Para Concluir Bem o Produto -> Definir Modelo
+
+Objetivo do Modelo -> Visualizar, Controlar, Gerir Riscos.
+
+Modelagem -> Ter várias para analisar o problema por várias perspectivas
+

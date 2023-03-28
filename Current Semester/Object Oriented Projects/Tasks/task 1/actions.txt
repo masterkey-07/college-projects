@@ -1,0 +1,39 @@
+Aluno :
+    - Matricular em Disciplina
+    - Acessar Sistema
+    - Registrar
+    - Ajustar Disciplinas
+    - Receber Confirmação de Matricula
+    - Visualizar Relatório de Disciplinas (Prof, Cred.)
+    - Visualizar Notas, Faltas e Observações
+
+Professor :
+    - Submeter Aulas, Notas, Atividades
+    - Visualizar Relatório de Disciplinas (Prof, Cred.)
+    - Visualizar Lista de Alunos Matriculados
+    - Candidatar em uma Disciplina Vazia
+    - Registrar
+
+Comentário : 
+    - Lista de Curso/Disciplina em SCALeg
+
+Adm : 
+    - Configura Período de Matricula
+    - Registrar
+
+Sistema : 
+    - Recomendar Disciplinas e Alertar Período para Aluno por Email
+    - Notificar Coordenação Sobre Disciplinas com 3 alunos ou menos
+    - Controlar Acessos de Pessoas Registradas
+
+Coordenador : 
+    - Permitir Matricula Fora do Período, com Justificação
+    - Visualizar Relatório de Disciplinas (Prof, Cred., Dat, Detalhes (Atuais e Anteriores))
+    - Alocação de Professores nos Cursos
+    - Recebe Notificação do Sistema Sobre Disciplinas com 3 alunos ou menos
+    - Cancelar Turma
+    - Registrar
+
+Secretaria :
+    - Recebe listas de disciplina
+    - Registrar
