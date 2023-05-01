@@ -37,9 +37,7 @@ int main(int argc, char const *argv[])
     pid_t pid = fork();
 
     if (pid == 0)
-    {
         execvp(command[0], command);
-    }
 
     return 0;
 }

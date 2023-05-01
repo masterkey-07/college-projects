@@ -1,10 +1,5 @@
 #include <stdio.h>
 #include <stdlib.h>
-#include <string.h>
-#include <sys/stat.h>
-#include <ctype.h>
-#include <semaphore.h>
-#include <pthread.h>
 
 // CONSTANTS
 #define INPUT_FILE "input.txt"

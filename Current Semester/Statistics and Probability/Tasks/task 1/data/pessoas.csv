@@ -1,0 +1,37 @@
+estado_civil,grau_instrucao,num_filhos,salario,anos,meses,região
+solteiro,ensino fundamental,0,"4,00",26,03,interior
+casado,ensino fundamental,1,4.56,32,10,capital
+casado,ensino fundamental,2,"5,25",36,05,capital
+solteiro,ensino médio,0,"5,73",20,10,outra
+solteiro,ensino fundamental,0,"6,26",40,07,outra
+casado,ensino fundamental,0,6.66,28,00,interior
+solteiro,ensino fundamental,0,6.86,41,00,interior
+solteiro,ensino fundamental,0,7.39,43,04,capital
+casado,ensino médio,1,7.59,34,10,capital
+solteiro,ensino médio,0,7.44,23,06,outra
+casado,ensino médio,2,"8,12",33,06,interior
+solteiro,ensino fundamental,0,"8,46",27,11,capital
+solteiro,ensino médio,0,"8,74",37,05,outra
+casado,ensino fundamental,3,8.95,44,02,outra
+casado,ensino médio,0,9.13,30,05,interior
+solteiro,ensino médio,0,"9,35",38,08,outra
+casado,ensino médio,1,9.77,31,07,capital
+casado,ensino fundamental,2,9.80,39,07,outra
+solteiro,superior,0,10.53,25,08,interior
+solteiro,ensino médio,0,10.76,37,04,interior
+casado,ensino médio,1,11.06,30,09,outra
+solteiro,ensino médio,0,11.59,34,02,capital
+solteiro,ensino fundamental,0,12.00,41,00,outra
+casado,superior,0,12.79,26,01,outra
+casado,ensino médio,2,"13,23",32,05,interior
+casado,ensino médio,2,"13,60",35,00,outra
+solteiro,ensino fundamental,0,"13,85",46,07,outra
+casado,ensino médio,0,"14,69",29,08,interior
+casado,ensino médio,5,"14,71",40,06,interior
+casado,ensino médio,2,15.99,35,10,capital
+solteiro,superior,0,16.22,31,05,outra
+casado,ensino médio,1,16.61,36,04,interior
+casado,superior,3,"17,26",43,07,capital
+solteiro,superior,0,18.75,33,07,capital
+casado,ensino médio,2,"19,40",48,11,capital
+casado,superior,3,23.30,42,02,interior

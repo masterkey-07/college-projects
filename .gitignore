@@ -322,3 +322,4 @@ TSWLatexianTemp*
 # App Images
 
 *.AppImage
+.Rproj.user

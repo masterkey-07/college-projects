@@ -1,0 +1,1 @@
+As Classes do Java (Math, System, etc...) não são Singletons por não poderem serem trabalhados com uma instâncias serem instanciáveis.
