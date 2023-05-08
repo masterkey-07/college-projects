@@ -1,9 +1,3 @@
 7
-programar
-VAMOS
-palavra
-eh
-futebol
-computador
-legal
-3 2
+abcdefghijklmnopqrstuvwxyz
+programar VAMOS palavra eh futebol computador legal 

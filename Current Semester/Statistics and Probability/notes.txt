@@ -1,0 +1,14 @@
+Fenômenos Determinísticos -> Em várias condições semelhantes, resultados idênticos
+
+Fenômenos Aleatórios -> Em várias condições semelhantes, resultados diferentes
+
+Teoria da Probabilidade -> descrever fenômenos aleatórios
+
+
+Variável Aleatória -> Função que mapeia um valor de um espaço amostral
+    
+    def var(index):
+        return values[index]
+
+
+
