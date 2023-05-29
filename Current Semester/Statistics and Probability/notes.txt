@@ -10,5 +10,15 @@ Variável Aleatória -> Função que mapeia um valor de um espaço amostral
     def var(index):
         return values[index]
 
+Cada valor da Variável Aleatória tem uma possibilidade de ocorrência
+
+Variável Aleatória Discreta -> Conjunto Finito, ou Infinito porém Enumerável
+
+Variável Aleatória Continuas -> Valores em uma escala Continua
+
+Função de Probabilidade -> P(xi) = P(Ai) (Somatória de Todos é igual a 1)
+
+P(K < L) = P(k) + P(k-1) + . . . + P(k0) 
+
 
 
