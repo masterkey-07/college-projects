@@ -1,30 +1,42 @@
-interface Point {
+interface Point extends Cloneable {
     int getX();
 
     int getY();
+
+    Object clone() throws CloneNotSupportedException;
 }
 
-interface Rectangle {
+interface Rectangle extends Cloneable {
     public Point getUpperLeft();
 
     public Point getLowerRight();
+
+    Object clone() throws CloneNotSupportedException;
 }
 
-interface Triangle {
+interface Triangle extends Cloneable {
     public Point getFirstPoint();
 
     public Point getSecondPoint();
 
     public Point getThirdPoint();
+
+    Object clone() throws CloneNotSupportedException;
 }
 
-interface Circle {
+interface Circle extends Cloneable {
     public int getRadius();
 
     public Point getPosition();
+
+    Object clone() throws CloneNotSupportedException;
 }
 
 class SimplePoint implements Point {
+    public Object clone() throws CloneNotSupportedException {
+        return super.clone();
+    }
+
     private int x;
     private int y;
 
@@ -47,6 +59,15 @@ class SimplePoint implements Point {
 }
 
 class SimpleRectangle implements Rectangle {
+    public Object clone() throws CloneNotSupportedException {
+        SimpleRectangle cloned = (SimpleRectangle) super.clone();
+
+        cloned.upperLeft = (Point) this.upperLeft.clone();
+        cloned.lowerRight = (Point) this.lowerRight.clone();
+
+        return cloned;
+    }
+
     private Point upperLeft;
     private Point lowerRight;
 
@@ -71,6 +92,16 @@ class SimpleRectangle implements Rectangle {
 }
 
 class SimpleTriangle implements Triangle {
+    public Object clone() throws CloneNotSupportedException {
+        SimpleTriangle cloned = (SimpleTriangle) super.clone();
+
+        cloned.firstPosition = (Point) cloned.firstPosition.clone();
+        cloned.secondPosition = (Point) cloned.secondPosition.clone();
+        cloned.thirdPosition = (Point) cloned.thirdPosition.clone();
+
+        return cloned;
+    }
+
     private Point firstPosition;
     private Point secondPosition;
     private Point thirdPosition;
@@ -101,6 +132,14 @@ class SimpleTriangle implements Triangle {
 }
 
 class SimpleCircle implements Circle {
+    public Object clone() throws CloneNotSupportedException {
+        SimpleCircle cloned = (SimpleCircle) super.clone();
+
+        cloned.position = (Point) this.position.clone();
+
+        return cloned;
+    }
+
     private int radius;
     private Point position;
 
@@ -122,6 +161,10 @@ class SimpleCircle implements Circle {
 }
 
 class ComplexPoint implements Point {
+    public Object clone() throws CloneNotSupportedException {
+        return super.clone();
+    }
+
     private int xy;
 
     public int getX() {
@@ -138,6 +181,14 @@ class ComplexPoint implements Point {
 }
 
 class ComplexRectangle implements Rectangle {
+    public Object clone() throws CloneNotSupportedException {
+        ComplexRectangle clone = (ComplexRectangle) super.clone();
+
+        clone.upperLeft = (Point) this.upperLeft.clone();
+
+        return clone;
+    }
+
     private Point upperLeft;
     private int length;
 
@@ -165,6 +216,14 @@ class ComplexRectangle implements Rectangle {
 }
 
 class ComplexTriangle implements Triangle {
+    public Object clone() throws CloneNotSupportedException {
+        ComplexTriangle cloned = (ComplexTriangle) super.clone();
+
+        cloned.firstPosition = (Point) this.firstPosition.clone();
+
+        return cloned;
+    }
+
     private Point firstPosition;
     private int length;
 
@@ -215,6 +274,14 @@ class ComplexTriangle implements Triangle {
 }
 
 class ComplexCircle implements Circle {
+    public Object clone() throws CloneNotSupportedException {
+        ComplexCircle cloned = (ComplexCircle) super.clone();
+
+        cloned.startPosition = (Point) this.startPosition.clone();
+
+        return cloned;
+    }
+
     private int length;
     private Point startPosition;
 
@@ -286,7 +353,64 @@ class ComplexFactory implements AbstractFactory {
     }
 }
 
-public class Client {
+public class SuperClient {
+    private static boolean comparePoints(Point a, Point b) {
+        return a.getX() == b.getX() && a.getY() == b.getY();
+    }
+
+    private static void testPointClone(Point a) {
+        try {
+            Point b = (Point) a.clone();
+
+            System.out.println(comparePoints(a, b));
+            System.out.println(a != b);
+        } catch (Exception e) {
+            System.out.println(false);
+        }
+    }
+
+    private static void testRectangleClone(Rectangle a) {
+        try {
+            Rectangle b = (Rectangle) a.clone();
+
+            boolean upperLeft = comparePoints(a.getUpperLeft(), b.getUpperLeft());
+            boolean lowerRight = comparePoints(a.getLowerRight(), b.getLowerRight());
+
+            System.out.println(upperLeft && lowerRight);
+            System.out.println(a != b);
+        } catch (Exception e) {
+            System.out.println(false);
+        }
+    }
+
+    private static void testTriangleClone(Triangle a) {
+        try {
+            Triangle b = (Triangle) a.clone();
+
+            boolean firstPosition = comparePoints(a.getFirstPoint(), b.getFirstPoint());
+            boolean secondPosition = comparePoints(a.getSecondPoint(), b.getSecondPoint());
+            boolean thirdPosition = comparePoints(a.getThirdPoint(), b.getThirdPoint());
+
+            System.out.println(firstPosition && secondPosition && thirdPosition);
+            System.out.println(a != b);
+        } catch (Exception e) {
+            System.out.println(false);
+        }
+    }
+
+    private static void testCircleClone(Circle a) {
+        try {
+            Circle b = (Circle) a.clone();
+
+            boolean position = comparePoints(a.getPosition(), b.getPosition());
+            boolean radius = a.getRadius() == b.getRadius();
+
+            System.out.println(position && radius);
+            System.out.println(a != b);
+        } catch (Exception e) {
+            System.out.println(false);
+        }
+    }
 
     private static void testSimpleFactory() {
         AbstractFactory simpleFactory = new SimpleFactory();
@@ -325,6 +449,13 @@ public class Client {
         System.out.println(triangle.getFirstPoint() == pointA);
         System.out.println(triangle.getSecondPoint() == pointB);
         System.out.println(triangle.getThirdPoint() == pointC);
+
+        testPointClone(pointA);
+        testPointClone(pointB);
+        testPointClone(pointC);
+        testRectangleClone(rectangle);
+        testTriangleClone(triangle);
+        testCircleClone(circle);
     }
 
     private static void testComplexFactory() {
@@ -355,10 +486,15 @@ public class Client {
         System.out.println(circle.getRadius() == 5);
         System.out.println(triangle.getFirstPoint() == pointA);
         System.out.println(triangle.getSecondPoint().getX() == 10 && triangle.getSecondPoint().getY() == 0);
+
+        testPointClone(pointA);
+        testRectangleClone(rectangle);
+        testTriangleClone(triangle);
+        testCircleClone(circle);
     }
 
     public static void main(String[] args) {
-        Client.testSimpleFactory();
-        Client.testComplexFactory();
+        SuperClient.testSimpleFactory();
+        SuperClient.testComplexFactory();
     }
 }

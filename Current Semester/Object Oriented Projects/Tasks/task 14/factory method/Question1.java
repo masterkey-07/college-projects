@@ -38,7 +38,7 @@ class HashFactory {
     }
 }
 
-public class Client {
+public class Question1 {
 
     public static void main(String[] args) {
         HashMethod md5Method = HashFactory.getHash("md5");
