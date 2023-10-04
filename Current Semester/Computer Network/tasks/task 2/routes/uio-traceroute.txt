@@ -1,0 +1,31 @@
+traceroute to www.uio.no (129.240.118.130), 30 hops max, 60 byte packets
+ 1  _gateway (192.168.0.1)  11.411 ms  11.387 ms  11.376 ms
+ 2  10.13.0.1 (10.13.0.1)  17.867 ms  26.465 ms  26.453 ms
+ 3  bb6a9069.virtua.com.br (187.106.144.105)  26.448 ms  26.436 ms  26.472 ms
+ 4  bb6a9082.virtua.com.br (187.106.144.130)  26.412 ms  26.396 ms  26.387 ms
+ 5  embratel-H0-0-0-0-4004-agg02.sjc.embratel.net.br (200.210.89.13)  26.373 ms embratel-T0-4-0-0-uacc03.rjo.embratel.net.br (201.73.3.169)  38.768 ms embratel-T0-0-0-7-uacc03.rjoen.embratel.net.br (201.30.79.45)  29.589 ms
+ 6  * * 200.230.4.47 (200.230.4.47)  18.823 ms
+ 7  ebt-B1111-intl01.nyk.embratel.net.br (200.230.220.46)  132.831 ms ebt-B12211-intl01.nyk.embratel.net.br (200.230.220.38)  133.552 ms ebt-B12121-intl02.nyk.embratel.net.br (200.230.252.122)  150.699 ms
+ 8  ebt-B10811-intl01.nyk.embratel.net.br (200.230.251.62)  139.996 ms  139.970 ms us-man.nordu.net (198.32.160.21)  139.940 ms
+ 9  nl-ams.nordu.net (109.105.97.65)  220.725 ms  220.699 ms  220.674 ms
+10  nl-ams.nordu.net (109.105.97.65)  220.643 ms dk-esbj.nordu.net (109.105.97.74)  233.371 ms nl-ams.nordu.net (109.105.97.65)  220.595 ms
+11  dk-esbj.nordu.net (109.105.97.74)  233.320 ms  239.447 ms no-stln.nordu.net (109.105.97.14)  264.784 ms
+12  stoleheia-gw.uninett.no (109.105.98.121)  264.745 ms  237.536 ms  223.381 ms
+13  stoleheia-gw.uninett.no (109.105.98.121)  232.424 ms  232.371 ms hmg9-gw1.uninett.no (128.39.254.204)  232.339 ms
+14  ifi2-gw5.uninett.no (128.39.255.64)  247.343 ms hmg9-gw1.uninett.no (128.39.254.204)  241.344 ms ifi2-gw5.uninett.no (128.39.255.64)  258.991 ms
+15  hmg9-gw1.uninett.no (128.39.254.204)  235.373 ms oslo-gw1.uninett.no (128.39.254.82)  235.351 ms  250.793 ms
+16  oslo-gw1.uninett.no (128.39.254.82)  241.175 ms  235.267 ms uio-gw8.uio.no (128.39.65.18)  235.240 ms
+17  knh-gw1.uio.no (129.240.100.69)  241.099 ms  250.661 ms  241.047 ms
+18  ojd-gw1.uio.no (129.240.100.66)  250.603 ms  245.932 ms uio-gw8.uio.no (128.39.65.18)  239.356 ms
+19  ojd-gw1.uio.no (129.240.100.66)  239.326 ms ojd-mrom-gw1.uio.no (129.240.25.162)  245.819 ms  237.354 ms
+20  * ojd-mrom-gw1.uio.no (129.240.25.162)  237.287 ms ojd-gw1.uio.no (129.240.100.66)  237.258 ms
+21  * * *
+22  * * *
+23  * * *
+24  * * *
+25  * * *
+26  * * *
+27  * * *
+28  * * *
+29  * * *
+30  * * *

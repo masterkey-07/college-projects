@@ -1,0 +1,31 @@
+traceroute to www.ovale.com.br (187.32.229.77), 30 hops max, 60 byte packets
+ 1  _gateway (192.168.0.1)  9.096 ms  9.047 ms  9.027 ms
+ 2  10.13.0.1 (10.13.0.1)  22.934 ms  31.389 ms  31.369 ms
+ 3  bb6a9069.virtua.com.br (187.106.144.105)  31.351 ms  31.330 ms  31.312 ms
+ 4  bb6a9082.virtua.com.br (187.106.144.130)  31.289 ms  31.267 ms  31.246 ms
+ 5  embratel-T0-0-1-0-uacc05.spoph.embratel.net.br (200.247.144.1)  37.871 ms  37.851 ms embratel-T0-3-0-4-uacc04.spomb.embratel.net.br (189.86.167.17)  37.833 ms
+ 6  200.230.4.47 (200.230.4.47)  37.808 ms ebt-B1102-tcore01.rjoen.embratel.net.br (200.230.243.45)  40.941 ms *
+ 7  ebt-B111-agg03.spo.embratel.net.br (200.230.228.0)  27.638 ms 200.244.165.208 (200.244.165.208)  28.417 ms  34.646 ms
+ 8  ebt-B111-agg03.spo.embratel.net.br (200.230.228.0)  28.330 ms 100.127.8.229 (100.127.8.229)  40.269 ms ebt-B111-agg03.spo.embratel.net.br (200.230.228.0)  28.282 ms
+ 9  ebt-B111-agg03.spo.embratel.net.br (200.230.228.0)  28.263 ms et-14-0-1-0.ptx-a.spo511.algartelecom.com.br (170.84.35.29)  40.217 ms  43.615 ms
+10  et-14-0-0-0.ptx-a.spo511.algartelecom.com.br (170.84.34.174)  40.183 ms  50.183 ms 100.127.5.201 (100.127.5.201)  40.150 ms
+11  100.127.5.201 (100.127.5.201)  50.148 ms  50.129 ms  48.120 ms
+12  et-8-0-2-0.ptx-a.fac001.algartelecom.com.br (201.48.45.37)  48.060 ms *  43.053 ms
+13  100.110.222.149 (100.110.222.149)  73.750 ms  73.727 ms  73.693 ms
+14  * * *
+15  * * *
+16  * * *
+17  * * *
+18  * * *
+19  * * *
+20  * * *
+21  * * *
+22  * * *
+23  * * *
+24  * * *
+25  * * *
+26  * * *
+27  * * *
+28  * * *
+29  * * *
+30  * * *
