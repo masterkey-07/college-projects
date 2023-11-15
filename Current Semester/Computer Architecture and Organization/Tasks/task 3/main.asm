@@ -1,98 +1,64 @@
+
+#result = (unsigned int)  % 2048;
+#next *= 1103515245;
+#next += 12345;
+#result <<= 10;
+#result ^= (unsigned int) (next / 65536) % 1024;
+#next *= 1103515245;
+#next += 12345;
+#result <<= 10;
+#result ^= (unsigned int) (next / 65536) % 1024;
 .text
 
-.globl	main
+.globl main
 main:
-    li      $t2,    0
+    lw      $t0,    bigA #next = 1103515245
+    lw      $t1,    bigB
+    lw      $t2,    bigC
+    lw      $t3,    bigD
+    lw      $t4,    bigE
+    lw      $t5,    ten 
+    lw      $t7,    bigA
 
-    li      $v0,    5
-    syscall 
-    move    $t0,    $v0
+    add     $t0,    $t0,    $t1 #next += 12345;
 
-    bgt     $t0,    30,         lbig
+    divu     $t0,    $t2 # next / 65536
+
+    mflo    $t6 # helper = next / 65536
+
+    divu     $t6,    $t3 # helper % 2048
+
+    mfhi    $t9 # result = helper % 2048
+
+    multu     $t0,    $t7   #next * 1103515245;
+
+    add     $t0,    $t0,    $t1 #next += 12345;
+
+    sll $t9, $t9, 10 # result ^= 
+
+    xor $t9, $t9, $t1
+
+    # mflo    $t6 # helper = next / 65536
+
+    # div     $t6,    $t3 # helper % 2048
 
 
-read:
-    addi    $t0,    $t0,        -1
 
-    beq     $t0,    -1,         printr
-
-    li      $v0,    5
-    syscall 
-    move    $t1,    $v0
-
-    bgt     $t1,    50,         notright
-    blt     $t1,    1,          notright
-
-    bgt     $t1,    $t2,        bigger
-
-    j       read
-
-bigger:
-    move    $t2,    $t1
-
-    j       read
-
-notright:
     li      $v0,    1
-    move    $a0,    $t1
+    move    $a0,    $t9
     syscall 
 
-    li      $v0,    4
-    la      $a0,    toobig2
-    syscall 
-
-    j       read
-
-
-lbig:
-    li      $v0,    1
-    move    $a0,    $t0
-    syscall 
-
-    li      $v0,    4
-    la      $a0,    toobig
-    syscall 
-
-    j       end
-
-printr:
-    blt     $t2,    10,         nivel1
-
-    bge     $t2,    20,         nivel3
-
-    j       nivel2
-
-nivel1:
-    li      $v0,    4
-    la      $a0,    level1
-    syscall 
-
-    j       end
-
-nivel2:
-    li      $v0,    4
-    la      $a0,    level2
-    syscall 
-
-    j       end
-
-nivel3:
-    li      $v0,    4
-    la      $a0,    level3
-    syscall 
-
-    j       end
-
-
-end:
     li      $v0,    10
     syscall 
 
 
-
 .data
-toobig: .asciiz ": valor invalido."
-toobig2: .asciiz ": velocidade invalida\n"
-level1: .asciiz "Maior nivel: velocidade 1"
-level2: .asciiz "Maior nivel: velocidade 2"
-level3: .asciiz "Maior nivel: velocidade 3"
+
+bigA: .word 1103515245
+bigB: .word 12345
+bigC: .word 65536
+bigD: .word 2048
+bigE: .word 1024
+ten: .word 10
+
+
