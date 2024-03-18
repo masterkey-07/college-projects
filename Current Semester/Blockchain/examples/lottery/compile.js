@@ -24,4 +24,4 @@ const input = {
 
 let contratoCompilado = JSON.parse(solc.compile(JSON.stringify(input)));
 
-console.log(contratoCompilado.contracts[loterialFile].Loteria);
+module.exports = contratoCompilado.contracts[loterialFile].Loteria;
