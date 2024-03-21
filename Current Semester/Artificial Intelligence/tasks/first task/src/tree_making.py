@@ -8,8 +8,8 @@ DEFAULT_REMOVE_COLUMNS = [PASSENGER_ID, NAME, TICKET, IS_TEST_COLUMN, CABIN]
 
 def train_decision_tree(decision_tree_classifier:DecisionTreeClassifier, to_remove=list[str] ):
     data_train = pd.read_csv(NEW_TRAIN_FILE)
+    
     data_test = pd.read_csv(NEW_TEST_FILE)
-    data_result = pd.read_csv(RESULT_FILE)
 
     to_remove_columns = [SURVIVED,*DEFAULT_REMOVE_COLUMNS, *to_remove]
 
@@ -25,7 +25,7 @@ def train_decision_tree(decision_tree_classifier:DecisionTreeClassifier, to_remo
     
     predicted_output_data = decision_tree_classifier.predict(input_test_data)
     
-    expected_output_data = data_result[SURVIVED].values
+    expected_output_data = data_test[SURVIVED].values
 
     accuracy_score_result = accuracy_score(expected_output_data, predicted_output_data)
     
