@@ -1,6 +1,5 @@
 import pandas as pd
 from constant import NEW_TEST_FILE, NEW_TRAIN_FILE, AGE, EMBARKED, FARE, SEX, IS_TEST_COLUMN, PORTS, GENDERS, ZERO_FARE, COMMON_VALUE, TRAIN_FILE, TEST_FILE, RESULT_FILE, PASSENGER_ID, NAME
-from age_setter import map_age_with_normalization
 
 def extract_raw_data():
     data_train = pd.read_csv(TRAIN_FILE)
