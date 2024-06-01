@@ -325,3 +325,10 @@ TSWLatexianTemp*
 .Rproj.user
 
 *.class
+
+
+*.tif
+
+
+**/UCMerced_LandUse.zip
+splitted_images.zip
