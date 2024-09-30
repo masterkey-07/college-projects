@@ -4,6 +4,7 @@
 #define NONE -1
 #define FALSE 1
 #define TRUE 2
+#define START_COLUMN 0
 
 void **organization_possibilites(int column, int *memory, int *free_lines, int *rules, int length)
 {
@@ -17,9 +18,7 @@ void **organization_possibilites(int column, int *memory, int *free_lines, int *
         return 0;
     }
 
-    int line;
-
-    for (line = 0; line < length; line++)
+    for (int line = 0; line < length; line++)
         if (free_lines[line] != FALSE || line == rules[column])
         {
             memory[column] = line;
@@ -52,7 +51,7 @@ int main(int argc, char const *argv[])
         free_lines[line - 1] = FALSE;
     }
 
-    organization_possibilites(0, memory, free_lines, rules, length);
+    organization_possibilites(START_COLUMN, memory, free_lines, rules, length);
 
     free(memory);
     free(free_lines);
