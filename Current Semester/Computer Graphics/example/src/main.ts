@@ -1,7 +1,7 @@
-import { FRAGMENT_SHADER_SOURCE, VERTEX_SHADER_SOURCE } from "./constants";
 import { createProgram } from "./utils/program";
 import { compileShader } from "./utils/shader";
-import { getWebGLFromCanvas } from "./utils/webgl";
+import { getWebGLFromCanvasId } from "./utils/webgl";
+import { FRAGMENT_SHADER_SOURCE, VERTEX_SHADER_SOURCE } from "./constants";
 
 const TRIANGLE_POSITIONS = new Float32Array([
   0.0,
@@ -28,7 +28,7 @@ const TRI_COLORS = new Float32Array([
 ]);
 
 const setupCanvas = () => {
-  const webgl = getWebGLFromCanvas("screen");
+  const webgl = getWebGLFromCanvasId("screen");
 
   // Compile vertex and fragment shaders
   const vertexShader = compileShader(

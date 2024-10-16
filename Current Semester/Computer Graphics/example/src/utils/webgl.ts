@@ -1,5 +1,7 @@
-export const getWebGLFromCanvas = (canvasId: string) => {
-  const canvas = document.getElementById(canvasId) as HTMLCanvasElement;
+export const getWebGLFromCanvasId = (canvasId: string) => {
+  const canvas = document.getElementById(canvasId) as
+    | HTMLCanvasElement
+    | undefined;
 
   if (!canvas) throw new Error("Canvas not found");
 
