@@ -18,6 +18,7 @@ struct file_buffer *allocate_buffer()
 void deallocate_buffer(struct file_buffer *buffer)
 {
     free(buffer->data);
+    free(buffer);
 }
 
 char get_next_char(file_buffer *buffer)
