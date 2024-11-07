@@ -8,7 +8,7 @@ CC = gcc
 CFLAGS = -Wall -I.
 
 # Arquivos de código-fonte
-SRC = main.c funcs.c
+SRC = main.c file_buffer.c lexer.c 
 
 # Arquivos objeto
 OBJ = $(SRC:.c=.o)
@@ -25,7 +25,7 @@ $(TARGET): $(OBJ)
 	$(CC) $(CFLAGS) -c $< -o $@
 
 run: $(TARGET)
-	./$(TARGET) input.txt
+	./$(TARGET) lexemas.c
 
 # Limpar arquivos gerados
 clean:

@@ -1,6 +1,7 @@
 #include <stdio.h>
-#include <funcs.h>
 #include <stdlib.h>
+
+#include "lexer.h"
 
 int main(int argc, char const *argv[])
 {
@@ -9,40 +10,25 @@ int main(int argc, char const *argv[])
 
     char const *file_name = argv[1];
 
-    char c;
-
     FILE *file = fopen(file_name, "rb");
 
     if (file == NULL)
         return 0;
 
-    file_buffer *buffer = allocate_buffer();
+    file_buffer *buffer = allocate_buffer(file);
 
-    int count = 0;
+    lexem_buffer *lexem = allocate_lexem_buffer();
 
-    while (fgets(buffer->data, 256, file))
-    {
-        printf("%s\n", buffer->data);
-
-        while ((c = get_next_char(buffer)) != '\0')
-        {
-            count++;
-
-            printf("trying: %c\n", c);
-
-            if (count > 10)
-            {
-                count = 0;
-                go_back(buffer);
-            }
-            else
-                printf("gotcha: %c\n", c);
-        }
-    }
+    while (get_next_lexem(buffer, lexem) == 1)
+        printf("Type:%d\tLexem:%s\tLine:%d\n", lexem->token, lexem->data, lexem->line);
 
     deallocate_buffer(buffer);
 
+    deallocate_lexem_buffer(lexem);
+
     fclose(file);
+
+    printf("done\n");
 
     return 0;
 }
