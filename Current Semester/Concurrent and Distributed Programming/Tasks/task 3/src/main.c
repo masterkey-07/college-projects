@@ -12,7 +12,7 @@ int main()
 
     FILE *file = fopen("output.csv", "w");
 
-    fprintf(file, "seq,par\n");
+    fprintf(file, "threads,steps,seq,par\n");
 
     for (threads = 1; threads <= 12; threads++)
         for (steps = 1; steps <= 1000000000; steps = steps * 10)
@@ -30,7 +30,7 @@ int main()
             seq_time_spent = (double)(seq_end - seq_start);
             par_time_spent = (double)(par_end - par_start);
 
-            fprintf(file, "%lf,%lf\n", seq_time_spent, par_time_spent);
+            fprintf(file, "%d,%d,%lf,%lf\n", threads, steps, seq_time_spent, par_time_spent);
         }
 
     fclose(file);
