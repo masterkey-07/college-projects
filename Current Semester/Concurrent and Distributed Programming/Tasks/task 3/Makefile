@@ -1,6 +1,6 @@
 # Compiler and flags
 CC = gcc
-CFLAGS = -fopenmp -Wall -Wextra -I./src -I./tests
+CFLAGS = -O3 -fopenmp -Wall -Wextra -I./src -I./tests
 
 # Directories
 SRC_DIR = src

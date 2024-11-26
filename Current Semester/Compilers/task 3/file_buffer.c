@@ -27,6 +27,8 @@ void deallocate_buffer(struct file_buffer *buffer)
 
 char *read_file(file_buffer *buffer)
 {
+    buffer->index = 0;
+
     return fgets(buffer->data, 256, buffer->file);
 }
 
@@ -40,10 +42,7 @@ char get_next_char(file_buffer *buffer)
     buffer->index++;
 
     if (next_char == '\0')
-    {
-        buffer->index = 0;
         return '\0';
-    }
 
     if (next_char == '\n')
         buffer->line++;

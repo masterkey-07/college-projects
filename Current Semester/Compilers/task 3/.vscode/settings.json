@@ -1,6 +1,7 @@
 {
   "cSpell.words": ["funcs"],
   "files.associations": {
-    "funcs.h": "c"
+    "funcs.h": "c",
+    "file_buffer.h": "c"
   }
 }
