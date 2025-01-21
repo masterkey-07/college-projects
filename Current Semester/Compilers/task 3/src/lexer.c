@@ -50,7 +50,7 @@ int is_numeric(char character)
 
 int is_common_character(char character)
 {
-    return isalpha(character) || character == '_' || character == '#';
+    return isalpha(character) || is_numeric(character) || character == '.' || character == '_' || character == '#';
 }
 
 void write_character(lexem_buffer *lexem, char character)
@@ -120,7 +120,7 @@ int run_lexer_machine_state(file_buffer *buffer, lexem_buffer *lexem, lexer_stat
         type = is_special(lexem->data);
 
         if (type == -1)
-            lexem->token = 0;
+            lexem->token = -1;
         else
             lexem->token = type;
 
